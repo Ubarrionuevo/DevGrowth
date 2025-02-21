@@ -70,7 +70,7 @@
             
             <div class="flex items-center gap-2">
                 <span class="text-gray-600 font-medium">
-                    <span class="font-bold text-green-600" id="userCounter">6</span> users registered
+                    <span class="font-bold text-green-600" id="userCounter">8</span> users registered
                 </span>
                 <span class="text-xs text-green-600 font-semibold bg-green-100 px-2 py-0.5 rounded-full">LIVE</span>
             </div>
@@ -251,6 +251,12 @@
     </footer>
 
     <script>
+        // Actualizar el valor inicial a 8
+        const counter = document.getElementById('userCounter');
+        const savedCount = localStorage.getItem('userCount') || 8;
+        counter.textContent = savedCount;
+
+        // El resto del script permanece igual
         document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -277,11 +283,6 @@
                 alert('There was an error. Please try again.');
             }
         });
-
-        // Actualizar el valor inicial a 6
-        const counter = document.getElementById('userCounter');
-        const savedCount = localStorage.getItem('userCount') || 6;
-        counter.textContent = savedCount;
     </script>
 </body>
 </html>
