@@ -70,7 +70,7 @@
             
             <div class="flex items-center gap-2">
                 <span class="text-gray-600 font-medium">
-                    <span class="font-bold text-green-600" id="userCounter">3</span> users registered
+                    <span class="font-bold text-green-600" id="userCounter">5</span> users registered
                 </span>
                 <span class="text-xs text-green-600 font-semibold bg-green-100 px-2 py-0.5 rounded-full">LIVE</span>
             </div>
@@ -265,12 +265,9 @@
                 });
 
                 if (response.ok) {
-                    // Incrementar el contador solo si el envío fue exitoso
-                    const counter = document.getElementById('userCounter');
                     const currentCount = parseInt(counter.textContent);
                     counter.textContent = currentCount + 1;
-                    
-                    // Limpiar el formulario y mostrar mensaje de éxito
+                    localStorage.setItem('userCount', currentCount + 1);
                     form.reset();
                     alert('¡Thanks for joining our waitlist!');
                 } else {
@@ -281,16 +278,10 @@
             }
         });
 
-        // Guardar el contador en localStorage para mantenerlo entre recargas
+        // Actualizar el valor inicial a 5
         const counter = document.getElementById('userCounter');
-        const savedCount = localStorage.getItem('userCount') || 3;
+        const savedCount = localStorage.getItem('userCount') || 5;
         counter.textContent = savedCount;
-
-        // Función para actualizar el contador y guardarlo
-        function updateCounter(newCount) {
-            counter.textContent = newCount;
-            localStorage.setItem('userCount', newCount);
-        }
     </script>
 </body>
 </html>
