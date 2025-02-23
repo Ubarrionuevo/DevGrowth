@@ -14,11 +14,26 @@
             background: radial-gradient(circle at center, #f3e8ff 0%, #e9d5ff 100%);
         }
     </style>
+    
 </head>
-<body class="gradient-bg min-h-screen flex items-center justify-center">
-    <div class="flex flex-col md:flex-row items-center justify-center gap-8 p-8">
+
+
+<body class="gradient-bg min-h-screen flex flex-col">
+    <div class="flex justify-between items-center w-full p-4 mb-12">
+        <div class="flex items-center gap-2">
+            <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
+            <span class="font-semibold text-gray-700">DevGrowth</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-gray-700 font-medium">Welcome, User!</span>
+            <img src="/img/user-avatar.png" alt="User Avatar" class="w-8 h-8 rounded-full">
+        </div>
+    </div>
+   
+
+    <div class="flex flex-col md:flex-row items-center justify-center gap-8 p-8 flex-grow transition-all duration-500 ease-in-out mb-12">
         <!-- Formulario de Selección -->
-        <div class="bg-white p-4 rounded-lg shadow-md max-w-xs">
+        <div id="selectionCard" class="bg-white p-6 rounded-lg shadow-md max-w-md transform transition-transform duration-500 ease-in-out">
             <h2 class="text-xl font-bold mb-4 text-gray-900">Find Your Business Idea</h2>
             <form id="businessIdeaForm" class="space-y-4">
                 <!-- Selección de Perfil -->
@@ -40,6 +55,14 @@
                         <option value=">5">More than 5 years</option>
                     </select>
                 </div>
+                <div>
+                    <label for="development" class="block text-left text-gray-700 font-medium">What would you like to develop?</label>
+                    <select id="development" class="w-full px-3 py-2 border rounded-lg">
+                        <option value="extension">Extension</option>
+                        <option value="saas">SaaS</option>
+                        <option value="product">Product</option>
+                    </select>
+                </div>
 
                 <!-- Botón para obtener ideas -->
                 <button type="button" id="getIdeas" class="w-full px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Get Ideas</button>
@@ -47,22 +70,15 @@
         </div>
 
         <!-- Mostrar Ideas de Negocio -->
-        <div id="businessIdeas" class="bg-white p-4 rounded-lg shadow-md max-w-xs text-left text-gray-700">
+        <div id="businessIdeas" class="bg-white p-6 rounded-lg shadow-md max-w-md text-left text-gray-700 transform transition-transform duration-500 ease-in-out scale-95 opacity-0 hidden">
             <h3 class="text-xl font-bold mb-4">Business Ideas</h3>
             <ul id="ideasList" class="list-none pl-0 space-y-4 max-h-64 overflow-y-auto"></ul>
         </div>
     </div>
 
-    <!-- Waitlist Form -->
-    <div class="bg-white p-4 rounded-lg shadow-md max-w-xs mt-8">
-        <h3 class="text-xl font-bold mb-4 text-gray-900">Join the Waitlist</h3>
-        <form id="waitlistForm" action="https://formspree.io/f/mzzzqezp" method="POST" class="flex flex-col gap-2">
-            <input type="email" name="email" required class="px-4 py-2 rounded-lg bg-white border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full text-sm" placeholder="Enter your email">
-            <button type="submit" class="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 text-sm font-medium">
-                Join Waitlist
-            </button>
-        </form>
-    </div>
+ 
+
+ 
 
     <!-- Modal -->
     <div id="ideaModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
@@ -82,6 +98,15 @@
 
             // Limpiar la lista de ideas
             ideasList.innerHTML = '';
+
+            // Mostrar la tarjeta de ideas con animación
+            const businessIdeas = document.getElementById('businessIdeas');
+            businessIdeas.classList.remove('scale-95', 'opacity-0', 'hidden');
+            businessIdeas.classList.add('scale-100', 'opacity-100');
+
+            // Mover la tarjeta de selección hacia la izquierda ligeramente
+            const selectionCard = document.getElementById('selectionCard');
+            selectionCard.classList.add('translate-x-[-20%]');
 
             // Generar ideas de negocio con su respectiva cantidad de estrellas
             let ideas = [];
@@ -246,6 +271,16 @@
         document.getElementById('closeModal').addEventListener('click', function() {
             document.getElementById('ideaModal').classList.add('hidden');
         });
+
+        // Lógica para el carrusel
+        let currentIndex = 0;
+        const carouselItems = document.getElementById('carouselItems');
+        const totalItems = carouselItems.children.length;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalItems;
+            carouselItems.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }, 5000); // Cambia cada 5 segundos
     </script>
 </body>
 </html>
