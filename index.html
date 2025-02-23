@@ -26,7 +26,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-3xl mx-auto px-4 text-center mt-15">
+    <main class="max-w-3xl mx-auto px-4 text-center mt-32">
         <!-- Status Badge -->
         <div class="inline-flex items-center bg-white/50 rounded-full px-3 py-1 mb-8">
             <div class="w-2 h-2 bg-purple-500 rounded-full mr-2 animate-pulse"></div>
@@ -35,13 +35,30 @@
 
         <!-- Updated Hero Text -->
         <h1 class="mb-6">
-            <div class="text-4xl font-extrabold leading-tight space-y-2">
+            <div class="text-6xl font-extrabold leading-tight space-y-2">
                 <span class="block text-gray-900">BUILD.</span>
                 <span class="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">SHARE.</span>
                 <span class="block text-orange-500">GROW.</span>
             </div>
         </h1>
-       
+        
+        <p class="text-gray-600 mb-12 text-xl max-w-2xl mx-auto">
+            Connect your developer profile with real-world projects. 
+            <span class="text-purple-600 font-medium">No more toy projects</span> - 
+            build a portfolio that truly showcases your skills.
+        </p>
+
+        <!-- Updated Form -->
+        <form id="waitlistForm" action="https://formspree.io/f/mzzzqezp" method="POST" 
+              class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <input type="email" name="email" required
+                   class="px-6 py-4 rounded-xl bg-white/90 border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full sm:w-80 text-lg"
+                   placeholder="Enter your email">
+            <button type="submit"
+                    class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 text-lg font-medium">
+                Join Waitlist
+            </button>
+        </form>
 
         <!-- Live Counter con Alert de Lanzamiento -->
         <div class="flex flex-col items-center gap-4">
@@ -61,48 +78,111 @@
                 </div>
             </div>
 
-          
-        </div>
-
-        <!-- Nueva Card de Formulario -->
-        <div class="flex justify-center mt-16">
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-md">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900">Find Your Business Idea</h2>
-                <form id="businessIdeaForm" class="space-y-4">
-                    <!-- Selección de Perfil -->
-                    <div>
-                        <label for="profile" class="block text-left text-gray-700 font-medium">Profile</label>
-                        <select id="profile" class="w-full px-4 py-2 border rounded-lg">
-                            <option value="frontend">Frontend</option>
-                            <option value="backend">Backend</option>
-                            <option value="data">Data</option>
-                        </select>
-                    </div>
-
-                    <!-- Selección de Experiencia -->
-                    <div>
-                        <label for="experience" class="block text-left text-gray-700 font-medium">Experience</label>
-                        <select id="experience" class="w-full px-4 py-2 border rounded-lg">
-                            <option value="1-3">1-3 years</option>
-                            <option value="3-5">3-5 years</option>
-                            <option value=">5">More than 5 years</option>
-                        </select>
-                    </div>
-
-                    <!-- Botón para obtener ideas -->
-                    <button type="button" id="getIdeas" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Get Ideas</button>
-                </form>
-            </div>
-
-            <!-- Mostrar Ideas de Negocio -->
-            <div id="businessIdeas" class="ml-8 bg-white p-8 rounded-2xl shadow-lg max-w-md text-left text-gray-700">
-                <h3 class="text-xl font-bold mb-4">Business Ideas</h3>
-                <ul id="ideasList" class="list-disc pl-5 space-y-2"></ul>
+            <!-- Success Launch Alert -->
+            <div class="flex items-center bg-blue-100 text-blue-800 px-6 py-3 rounded-xl border border-blue-200">
+                <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium">We've reached 10 members! Product launching soon 🚀</span>
             </div>
         </div>
     </main>
 
- 
+    <!-- How it Works Section - Updated with sequential design -->
+    <section class="py-24 max-w-6xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">
+            How It Works
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto relative">
+            <!-- Connecting Arrow -->
+            <div class="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <svg class="w-20 h-20 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </div>
+
+            <!-- Step 1: Profile Analysis -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
+                <!-- Step Number -->
+                <div class="absolute -top-6 -left-6 w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center transform rotate-12 group-hover:rotate-0 transition-transform duration-300">
+                    <span class="text-white text-2xl font-bold">01</span>
+                </div>
+                
+                <div class="ml-8">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900">Share Your Profile</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Tell us about your tech stack, experience level, and what you love to build.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Tech Stack
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Experience Level
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-purple-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Project Interests
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2: Project Matching -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden group">
+                <!-- Step Number -->
+                <div class="absolute -top-6 -left-6 w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center transform rotate-12 group-hover:rotate-0 transition-transform duration-300">
+                    <span class="text-white text-2xl font-bold">02</span>
+                </div>
+                
+                <div class="ml-8">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900">Get Matched</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        We'll connect you with projects that perfectly match your skills and goals.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Personalized Matching
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Real-World Projects
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <svg class="w-5 h-5 text-blue-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Career Growth
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <form id="waitlistForm" action="https://formspree.io/f/mzzzqezp" method="POST" 
+              class="flex flex-col sm:flex-row gap-4 justify-center mb-12 mt-16">
+            <input type="email" name="email" required
+                   class="px-6 py-4 rounded-xl bg-white/90 border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full sm:w-80 text-lg"
+                   placeholder="Enter your email">
+            <button type="submit"
+                    class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 text-lg font-medium">
+                Join Waitlist
+            </button>
+        </form>
+    </section>
 
     <!-- Pricing Section -->
     <section class="py-24 max-w-6xl mx-auto px-4">
@@ -213,151 +293,6 @@
             } catch (error) {
                 alert('There was an error. Please try again.');
             }
-        });
-
-        // Lógica para mostrar ideas de negocio
-        document.getElementById('getIdeas').addEventListener('click', function() {
-            const profile = document.getElementById('profile').value;
-            const experience = document.getElementById('experience').value;
-            const ideasList = document.getElementById('ideasList');
-
-            // Limpiar la lista de ideas
-            ideasList.innerHTML = '';
-
-            // Generar ideas de negocio
-            let ideas = [];
-
-            if (profile === 'frontend') {
-                if (experience === '1-3') {
-                    ideas = [
-                        'Create website templates for small businesses.',
-                        'Develop a UI component library.',
-                        'Offer web performance optimization consulting.',
-                        'Build a portfolio showcasing tool.',
-                        'Create a CSS framework.',
-                        'Develop a responsive design toolkit.',
-                        'Offer freelance frontend services.',
-                        'Create a frontend mentoring program.',
-                        'Develop a web accessibility tool.',
-                        'Create a frontend testing framework.'
-                    ];
-                } else if (experience === '3-5') {
-                    ideas = [
-                        'Develop a UI component library.',
-                        'Create a CSS framework.',
-                        'Offer web performance optimization consulting.',
-                        'Build a portfolio showcasing tool.',
-                        'Create a frontend testing framework.',
-                        'Develop a responsive design toolkit.',
-                        'Offer freelance frontend services.',
-                        'Create a frontend mentoring program.',
-                        'Develop a web accessibility tool.',
-                        'Create a frontend design system.'
-                    ];
-                } else {
-                    ideas = [
-                        'Offer web performance optimization consulting.',
-                        'Develop a UI component library.',
-                        'Create a CSS framework.',
-                        'Build a portfolio showcasing tool.',
-                        'Create a frontend testing framework.',
-                        'Develop a responsive design toolkit.',
-                        'Offer freelance frontend services.',
-                        'Create a frontend mentoring program.',
-                        'Develop a web accessibility tool.',
-                        'Create a frontend design system.'
-                    ];
-                }
-            } else if (profile === 'backend') {
-                if (experience === '1-3') {
-                    ideas = [
-                        'API services for startups.',
-                        'Database management platform.',
-                        'Microservices architecture consulting.',
-                        'Develop a backend framework.',
-                        'Create a cloud integration service.',
-                        'Offer backend security solutions.',
-                        'Develop a serverless application toolkit.',
-                        'Create a backend testing framework.',
-                        'Offer freelance backend services.',
-                        'Develop a backend mentoring program.'
-                    ];
-                } else if (experience === '3-5') {
-                    ideas = [
-                        'Database management platform.',
-                        'Microservices architecture consulting.',
-                        'Develop a backend framework.',
-                        'Create a cloud integration service.',
-                        'Offer backend security solutions.',
-                        'Develop a serverless application toolkit.',
-                        'Create a backend testing framework.',
-                        'Offer freelance backend services.',
-                        'Develop a backend mentoring program.',
-                        'Create a backend design system.'
-                    ];
-                } else {
-                    ideas = [
-                        'Microservices architecture consulting.',
-                        'Develop a backend framework.',
-                        'Create a cloud integration service.',
-                        'Offer backend security solutions.',
-                        'Develop a serverless application toolkit.',
-                        'Create a backend testing framework.',
-                        'Offer freelance backend services.',
-                        'Develop a backend mentoring program.',
-                        'Create a backend design system.',
-                        'Database management platform.'
-                    ];
-                }
-            } else if (profile === 'data') {
-                if (experience === '1-3') {
-                    ideas = [
-                        'Data analysis for small businesses.',
-                        'Develop predictive models.',
-                        'Big data strategy consulting.',
-                        'Create a data visualization tool.',
-                        'Offer data cleaning services.',
-                        'Develop a data integration platform.',
-                        'Create a data science toolkit.',
-                        'Offer freelance data analysis services.',
-                        'Develop a data mentoring program.',
-                        'Create a data security solution.'
-                    ];
-                } else if (experience === '3-5') {
-                    ideas = [
-                        'Develop predictive models.',
-                        'Big data strategy consulting.',
-                        'Create a data visualization tool.',
-                        'Offer data cleaning services.',
-                        'Develop a data integration platform.',
-                        'Create a data science toolkit.',
-                        'Offer freelance data analysis services.',
-                        'Develop a data mentoring program.',
-                        'Create a data security solution.',
-                        'Data analysis for small businesses.'
-                    ];
-                } else {
-                    ideas = [
-                        'Big data strategy consulting.',
-                        'Create a data visualization tool.',
-                        'Offer data cleaning services.',
-                        'Develop a data integration platform.',
-                        'Create a data science toolkit.',
-                        'Offer freelance data analysis services.',
-                        'Develop a data mentoring program.',
-                        'Create a data security solution.',
-                        'Data analysis for small businesses.',
-                        'Develop predictive models.'
-                    ];
-                }
-            }
-
-            // Añadir ideas a la lista
-            ideas.forEach(idea => {
-                const li = document.createElement('li');
-                li.textContent = idea;
-                ideasList.appendChild(li);
-            });
         });
     </script>
 </body>
