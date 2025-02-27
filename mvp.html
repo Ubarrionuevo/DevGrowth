@@ -24,10 +24,10 @@
             <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
             <span class="font-semibold text-gray-700">DevGrowth</span>
         </div>
-        <div class="flex items-center gap-4">
-            <span class="text-gray-700 font-medium">Welcome, User!</span>
-            <img src="/img/user-avatar.png" alt="User Avatar" class="w-8 h-8 rounded-full">
-        </div>
+        <!-- Botón de Créditos -->
+        <button id="creditButton" class="bg-purple-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-purple-700 transition-all">
+            Créditos: <span id="creditCount">3</span>
+        </button>
     </div>
    
 
@@ -76,211 +76,732 @@
         </div>
     </div>
 
- 
+    <!-- Botón flotante para abrir el feedback -->
+    <button 
+        id="openFeedback" 
+        class="fixed bottom-4 right-4 bg-purple-600 text-white rounded-full p-4 shadow-lg hover:bg-purple-700 transition-all z-40 flex items-center gap-2"
+    >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4z"></path>
+        </svg>
+        <span>Feedback</span>
+    </button>
 
- 
+    <!-- Banner de feedback (inicialmente oculto) -->
+    <div id="feedbackCard" class="fixed top-0 left-0 right-0 bg-white shadow-md transform transition-transform duration-500 ease-in-out -translate-y-full z-40">
+        <div class="max-w-4xl mx-auto p-4">
+            <div class="flex justify-between items-start">
+                <div class="flex-grow">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900">¡Ayúdanos a mejorar!</h3>
+                    
+                    <form id="feedbackForm" class="space-y-4">
+                        <!-- Rating con estrellas -->
+                        <div class="flex items-center gap-4">
+                            <label class="text-gray-700 font-medium whitespace-nowrap">¿Qué te parecieron las ideas?</label>
+                            <div class="flex space-x-2" id="ratingStars">
+                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="1">★</button>
+                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="2">★</button>
+                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="3">★</button>
+                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="4">★</button>
+                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="5">★</button>
+                            </div>
+                        </div>
 
-    <!-- Modal -->
-    <div id="ideaModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md">
-            <h3 class="text-2xl font-bold mb-4" id="modalTitle">Idea Details</h3>
-            <p id="modalContent" class="text-gray-700 mb-4"></p>
-            <button id="closeModal" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Close</button>
+                        <div class="flex gap-4">
+                            <!-- Comentarios -->
+                            <div class="flex-grow">
+                                <label for="feedbackComment" class="block text-gray-700 font-medium mb-2">¿Tienes alguna sugerencia?</label>
+                                <textarea 
+                                    id="feedbackComment" 
+                                    rows="2" 
+                                    class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    placeholder="Comparte tus ideas o sugerencias..."></textarea>
+                            </div>
+
+                            <!-- Email (opcional) -->
+                            <div class="w-1/3">
+                                <label for="feedbackEmail" class="block text-gray-700 font-medium mb-2">
+                                    Email (opcional)
+                                    <span class="text-sm text-gray-500 font-normal block">Para notificarte cuando implementemos tu sugerencia</span>
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="feedbackEmail" 
+                                    class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    placeholder="tu@email.com">
+                            </div>
+                        </div>
+
+                        <!-- Botón de envío -->
+                        <button 
+                            type="submit" 
+                            class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                            Enviar Feedback
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Botón para cerrar -->
+                <button 
+                    id="closeFeedback" 
+                    class="text-gray-500 hover:text-gray-700 focus:outline-none"
+                    aria-label="Cerrar feedback">
+                    ×
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal con animaciones -->
+    <div id="ideaModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="bg-white p-6 rounded-lg max-w-2xl mx-auto mt-20">
+            <div class="relative">
+                <h3 id="modalTitle" class="text-2xl font-bold mb-4 pr-8"></h3>
+                <button 
+                    id="closeModal" 
+                    class="absolute top-0 right-0 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+                    aria-label="Cerrar modal"
+                >
+                    ×
+                </button>
+            </div>
+            
+            <p id="modalContent" class="text-gray-600 mb-4"></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="font-semibold mb-2">Problema</h4>
+                    <p id="modalProblem" class="text-gray-600"></p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">Monetización</h4>
+                    <div id="modalMonetization" class="text-gray-600"></div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h4 class="font-semibold mb-2">Preguntas</h4>
+                <ul id="modalQuestions" class="list-disc pl-5 text-gray-600"></ul>
+            </div>
         </div>
     </div>
 
     <script>
-        // Lógica para mostrar ideas de negocio
-        document.getElementById('getIdeas').addEventListener('click', function() {
+        const ideaTemplates = {
+            "frontend": [
+                {
+                    "category": "extension",
+                    "products": [
+                        {
+                            "base": "{type} Developer Tool",
+                            "types": ["Color Picker", "CSS Generator", "Responsive Tester", "Performance", "A11y", "Code Formatter"],
+                            "details": "Herramienta esencial para desarrollo {type}",
+                            "monetization": [
+                                { "plan": "Free", "price": "Gratis", "limit": "Funciones básicas" },
+                                { "plan": "Pro", "price": "$4.99/mes", "limit": "Funciones avanzadas" },
+                                { "plan": "Team", "price": "$3.99/usuario/mes", "limit": "Colaboración" }
+                            ],
+                            "problem": "Desarrolladores necesitan herramientas especializadas para agilizar su trabajo diario",
+                            "questions": [
+                                "¿Qué herramientas similares usas actualmente?",
+                                "¿Cuánto tiempo dedicas a estas tareas?",
+                                "¿Qué características te faltan en tus herramientas actuales?",
+                                "¿Trabajas en equipo o solo?",
+                                "¿Cuánto pagarías por una herramienta que te ahorre tiempo?"
+                            ]
+                        },
+                        {
+                            "base": "{type} Inspector",
+                            "types": ["Architecture", "Bundle Size", "Security", "Performance", "Code Quality"],
+                            "details": "Inspector avanzado de {type} para desarrollo web",
+                            "monetization": [
+                                { "plan": "Basic", "price": "Gratis", "limit": "3 proyectos" },
+                                { "plan": "Pro", "price": "$9.99/mes", "limit": "Proyectos ilimitados" },
+                                { "plan": "Enterprise", "price": "$49.99/mes", "limit": "Características avanzadas" }
+                            ],
+                            "problem": "Equipos necesitan analizar y optimizar su código frontend",
+                            "questions": [
+                                "¿Cómo inspeccionas tu código actualmente?",
+                                "¿Qué métricas son importantes para ti?",
+                                "¿Qué problemas son difíciles de detectar?",
+                                "¿Cómo manejas la calidad del código en equipo?",
+                                "¿Qué herramientas de análisis usas?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category": "saas",
+                    "products": [
+                        {
+                            "base": "{type} Builder Platform",
+                            "types": ["Template", "Landing Page", "Portfolio", "Component", "Design System"],
+                            "details": "Plataforma para crear {type} profesionales",
+                            "monetization": [
+                                { "plan": "Starter", "price": "$29/mes", "limit": "5 proyectos" },
+                                { "plan": "Professional", "price": "$79/mes", "limit": "20 proyectos" },
+                                { "plan": "Agency", "price": "$199/mes", "limit": "Proyectos ilimitados" }
+                            ],
+                            "problem": "Crear y mantener recursos frontend requiere mucho tiempo y experiencia",
+                            "questions": [
+                                "¿Cómo creas estos recursos actualmente?",
+                                "¿Cuánto tiempo inviertes en cada proyecto?",
+                                "¿Qué frustraciones tienes con el proceso actual?",
+                                "¿Trabajas con diseñadores?",
+                                "¿Qué características te harían la vida más fácil?"
+                            ]
+                        },
+                        {
+                            "base": "{type} Management System",
+                            "types": ["Component", "Design Token", "Documentation", "Testing", "Deployment"],
+                            "details": "Sistema de gestión {type} para equipos frontend",
+                            "monetization": [
+                                { "plan": "Team", "price": "$99/mes", "limit": "10 usuarios" },
+                                { "plan": "Business", "price": "$249/mes", "limit": "50 usuarios" },
+                                { "plan": "Enterprise", "price": "Personalizado", "limit": "Características personalizadas" }
+                            ],
+                            "problem": "Equipos necesitan centralizar y gestionar recursos frontend",
+                            "questions": [
+                                "¿Cómo gestionas estos recursos ahora?",
+                                "¿Cuántas personas trabajan en tu equipo?",
+                                "¿Qué problemas de colaboración enfrentas?",
+                                "¿Cómo manejas las versiones?",
+                                "¿Qué procesos te gustaría automatizar?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category": "product",
+                    "products": [
+                        {
+                            "base": "{type} Enterprise Solution",
+                            "types": ["Design System", "Component Library", "Frontend Platform", "CI/CD", "Monitoring"],
+                            "details": "Solución empresarial {type} completa",
+                            "monetization": [
+                                { "plan": "Licencia", "price": "$15,000/año", "limit": "1 equipo" },
+                                { "plan": "Enterprise", "price": "$45,000/año", "limit": "Múltiples equipos" },
+                                { "plan": "Global", "price": "Personalizado", "limit": "Organización completa" }
+                            ],
+                            "problem": "Empresas necesitan soluciones frontend escalables y mantenibles",
+                            "questions": [
+                                "¿Qué soluciones usas actualmente?",
+                                "¿Cuántos desarrolladores tienen?",
+                                "¿Qué desafíos de escalabilidad enfrentas?",
+                                "¿Cómo manejas la consistencia?",
+                                "¿Qué costos tienes actualmente?"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "backend": [
+                {
+                    "category": "extension",
+                    "products": [
+                        {
+                            "base": "{type} Development Assistant",
+                            "types": ["API", "Database", "Log", "Performance", "Security"],
+                            "details": "Asistente de desarrollo {type} para backend",
+                            "monetization": [
+                                { "plan": "Free", "price": "Gratis", "limit": "Uso básico" },
+                                { "plan": "Pro", "price": "$7.99/mes", "limit": "Uso ilimitado" },
+                                { "plan": "Team", "price": "$5.99/usuario/mes", "limit": "Colaboración" }
+                            ],
+                            "problem": "Desarrolladores backend necesitan herramientas para debugging y testing",
+                            "questions": [
+                                "¿Qué herramientas de desarrollo usas?",
+                                "¿Cuánto tiempo dedicas a testing?",
+                                "¿Qué problemas son difíciles de debuggear?",
+                                "¿Cómo monitorizas el rendimiento?",
+                                "¿Qué características te faltan en tus herramientas?"
+                            ]
+                        },
+                        {
+                            "base": "{type} System Monitor",
+                            "types": ["Resource", "Health", "Architecture", "Security", "Quality"],
+                            "details": "Monitor de sistema {type} para backend",
+                            "monetization": [
+                                { "plan": "Basic", "price": "$19.99/mes", "limit": "5 servicios" },
+                                { "plan": "Pro", "price": "$49.99/mes", "limit": "20 servicios" },
+                                { "plan": "Enterprise", "price": "$199.99/mes", "limit": "Ilimitado" }
+                            ],
+                            "problem": "Equipos necesitan monitorizar y mantener sistemas backend",
+                            "questions": [
+                                "¿Cómo monitorizas tus sistemas?",
+                                "¿Qué métricas son críticas?",
+                                "¿Cómo manejas los incidentes?",
+                                "¿Qué alertas necesitas?",
+                                "¿Cuánto tiempo dedicas al mantenimiento?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category": "saas",
+                    "products": [
+                        {
+                            "base": "{type} Management Platform",
+                            "types": ["API", "Serverless", "Microservice", "Database", "Cache"],
+                            "details": "Plataforma de gestión {type} para backend",
+                            "monetization": [
+                                { "plan": "Startup", "price": "$99/mes", "limit": "100k requests" },
+                                { "plan": "Business", "price": "$299/mes", "limit": "1M requests" },
+                                { "plan": "Enterprise", "price": "Custom", "limit": "Personalizado" }
+                            ],
+                            "problem": "Empresas necesitan gestionar servicios backend eficientemente",
+                            "questions": [
+                                "¿Cómo gestionas tus servicios?",
+                                "¿Qué volumen de requests manejas?",
+                                "¿Qué problemas de escalabilidad tienes?",
+                                "¿Cómo manejas los despliegues?",
+                                "¿Qué costos de infraestructura tienes?"
+                            ]
+                        },
+                        {
+                            "base": "{type} Integration Service",
+                            "types": ["Message Queue", "Service Mesh", "API Gateway", "Load Balancer", "Service Discovery"],
+                            "details": "Servicio de integración {type} para backend",
+                            "monetization": [
+                                { "plan": "Basic", "price": "$199/mes", "limit": "5 servicios" },
+                                { "plan": "Pro", "price": "$499/mes", "limit": "20 servicios" },
+                                { "plan": "Enterprise", "price": "Custom", "limit": "Ilimitado" }
+                            ],
+                            "problem": "Integrar y coordinar servicios backend es complejo",
+                            "questions": [
+                                "¿Cómo integras tus servicios?",
+                                "¿Qué problemas de comunicación tienes?",
+                                "¿Cómo manejas la latencia?",
+                                "¿Qué patrones de integración usas?",
+                                "¿Cómo aseguras la fiabilidad?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category": "product",
+                    "products": [
+                        {
+                            "base": "{type} Enterprise Platform",
+                            "types": ["Multi-Cloud", "Container Orchestration", "Distributed System", "Integration", "Monitoring"],
+                            "details": "Plataforma empresarial {type} para backend",
+                            "monetization": [
+                                { "plan": "Department", "price": "$25,000/año", "limit": "1 departamento" },
+                                { "plan": "Division", "price": "$75,000/año", "limit": "Múltiples departamentos" },
+                                { "plan": "Enterprise", "price": "Custom", "limit": "Organización completa" }
+                            ],
+                            "problem": "Empresas necesitan plataformas backend robustas y escalables",
+                            "questions": [
+                                "¿Qué plataformas usas actualmente?",
+                                "¿Cuántos servicios gestionas?",
+                                "¿Qué desafíos de escalabilidad tienes?",
+                                "¿Cómo manejas el multi-cloud?",
+                                "¿Qué costos de infraestructura tienes?"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "data": [
+                {
+                    "category": "extension",
+                    "products": [
+                        {
+                            "base": "{type} Data Tool",
+                            "types": ["Cleaning", "Visualization", "ETL", "Quality", "Profiling"],
+                            "details": "Herramienta {type} para datos",
+                            "monetization": [
+                                { "plan": "Free", "price": "Gratis", "limit": "1000 filas/mes" },
+                                { "plan": "Pro", "price": "$9.99/mes", "limit": "Ilimitado" },
+                                { "plan": "Team", "price": "$7.99/usuario/mes", "limit": "Colaboración" }
+                            ],
+                            "problem": "Analistas necesitan herramientas eficientes para trabajar con datos",
+                            "questions": [
+                                "¿Qué herramientas de datos usas?",
+                                "¿Cuánto tiempo dedicas a limpiar datos?",
+                                "¿Qué problemas son recurrentes?",
+                                "¿Cómo visualizas los datos?",
+                                "¿Qué automatizaciones necesitas?"
+                            ]
+                        },
+                        {
+                            "base": "{type} Data Explorer",
+                            "types": ["SQL", "NoSQL", "Graph", "Time-series", "Document"],
+                            "details": "Explorador de datos {type} avanzado",
+                            "monetization": [
+                                { "plan": "Basic", "price": "$14.99/mes", "limit": "3 conexiones" },
+                                { "plan": "Pro", "price": "$39.99/mes", "limit": "10 conexiones" },
+                                { "plan": "Enterprise", "price": "$199.99/mes", "limit": "Ilimitado" }
+                            ],
+                            "problem": "Equipos necesitan explorar y analizar datos eficientemente",
+                            "questions": [
+                                "¿Cómo exploras datos actualmente?",
+                                "¿Qué tipos de bases de datos usas?",
+                                "¿Qué análisis son complejos?",
+                                "¿Cómo compartes los hallazgos?",
+                                "¿Qué visualizaciones necesitas?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category": "saas",
+                    "products": [
+                        {
+                            "base": "{type} Analytics Platform",
+                            "types": ["Predictive", "Real-time", "Big Data", "ML", "BI"],
+                            "details": "Plataforma de análisis {type}",
+                            "monetization": [
+                                { "plan": "Startup", "price": "$199/mes", "limit": "100k eventos" },
+                                { "plan": "Growth", "price": "$499/mes", "limit": "1M eventos" },
+                                { "plan": "Enterprise", "price": "Custom", "limit": "Personalizado" }
+                            ],
+                            "problem": "Empresas necesitan analizar grandes volúmenes de datos",
+                            "questions": [
+                                "¿Cómo analizas datos actualmente?",
+                                "¿Qué volumen de datos manejas?",
+                                "¿Qué insights son valiosos?",
+                                "¿Cómo usas ML/AI?",
+                                "¿Qué decisiones tomas con datos?"
+                            ]
+                        },
+                        {
+                            "base": "{type} Data Platform",
+                            "types": ["Lake", "Warehouse", "Pipeline", "Governance", "Quality"],
+                            "details": "Plataforma de datos {type} empresarial",
+                            "monetization": [
+                                { "plan": "Team", "price": "$999/mes", "limit": "500GB" },
+                                { "plan": "Business", "price": "$2,499/mes", "limit": "5TB" },
+                                { "plan": "Enterprise", "price": "Custom", "limit": "Ilimitado" }
+                            ],
+                            "problem": "Organizaciones necesitan gestionar datos a escala",
+                            "questions": [
+                                "¿Cómo almacenas tus datos?",
+                                "¿Qué fuentes de datos tienes?",
+                                "¿Cómo aseguras la calidad?",
+                                "¿Qué problemas de integración tienes?",
+                                "¿Cómo manejas el gobierno de datos?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category": "product",
+                    "products": [
+                        {
+                            "base": "{type} Enterprise Solution",
+                            "types": ["Data Science", "ML Ops", "Data Ops", "Analytics", "AI"],
+                            "details": "Solución empresarial {type} completa",
+                            "monetization": [
+                                { "plan": "Department", "price": "$50,000/año", "limit": "1 departamento" },
+                                { "plan": "Division", "price": "$150,000/año", "limit": "Múltiples departamentos" },
+                                { "plan": "Enterprise", "price": "Custom", "limit": "Organización completa" }
+                            ],
+                            "problem": "Empresas necesitan soluciones de datos end-to-end",
+                            "questions": [
+                                "¿Qué soluciones de datos usas?",
+                                "¿Cómo implementas ML/AI?",
+                                "¿Qué desafíos de datos tienes?",
+                                "¿Cómo mides el ROI?",
+                                "¿Qué capacidades necesitas?"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        document.getElementById('getIdeas').addEventListener('click', async function() {
             const profile = document.getElementById('profile').value;
             const experience = document.getElementById('experience').value;
+            const development = document.getElementById('development').value;
             const ideasList = document.getElementById('ideasList');
-
-            // Limpiar la lista de ideas
-            ideasList.innerHTML = '';
-
-            // Mostrar la tarjeta de ideas con animación
             const businessIdeas = document.getElementById('businessIdeas');
-            businessIdeas.classList.remove('scale-95', 'opacity-0', 'hidden');
-            businessIdeas.classList.add('scale-100', 'opacity-100');
-
-            // Mover la tarjeta de selección hacia la izquierda ligeramente
             const selectionCard = document.getElementById('selectionCard');
-            selectionCard.classList.add('translate-x-[-20%]');
 
-            // Generar ideas de negocio con su respectiva cantidad de estrellas
-            let ideas = [];
+            // Primero, resetear el estado anterior
+            businessIdeas.classList.add('scale-95', 'opacity-0');
+            selectionCard.classList.remove('translate-x-[-20%]');
+            
+            // Esperar a que termine la animación de ocultamiento
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Limpiar la lista anterior
+            ideasList.innerHTML = '';
+            
+            // Generar nuevas ideas
+            const numberOfIdeas = 4;
+            for (let i = 0; i < numberOfIdeas; i++) {
+                const idea = generateIdea(profile, experience, development);
+                
+                if (idea) {
+                    const li = document.createElement('li');
+                    li.classList.add(
+                        'bg-white', 'p-4', 'rounded-lg', 'shadow-md', 
+                        'hover:shadow-lg', 'transition', 'cursor-pointer', 'mb-4'
+                    );
 
-            if (profile === 'frontend') {
-                if (experience === '1-3') {
-                    ideas = [
-                        { text: 'Create website templates for small businesses.', stars: 3, details: 'Help small businesses establish an online presence with customizable website templates.' },
-                        { text: 'Develop a UI component library.', stars: 4, details: 'Create a library of reusable UI components to speed up development.' },
-                        { text: 'Offer web performance optimization consulting.', stars: 5, details: 'Consulting services to improve website speed and performance.' },
-                        { text: 'Build a portfolio showcasing tool.', stars: 2, details: 'Develop a tool for developers to showcase their projects and skills.' },
-                        { text: 'Create a CSS framework.', stars: 3, details: 'Develop a lightweight CSS framework for modern web development.' },
-                        { text: 'Develop a responsive design toolkit.', stars: 4, details: 'Create tools to help developers build responsive websites.' },
-                        { text: 'Offer freelance frontend services.', stars: 3, details: 'Provide freelance services for frontend development projects.' },
-                        { text: 'Create a frontend mentoring program.', stars: 2, details: 'Mentoring program for aspiring frontend developers.' },
-                        { text: 'Develop a web accessibility tool.', stars: 4, details: 'Tool to help developers ensure their websites are accessible to all users.' },
-                        { text: 'Create a frontend testing framework.', stars: 5, details: 'Develop a framework for testing frontend applications.' }
-                    ];
-                } else if (experience === '3-5') {
-                    ideas = [
-                        { text: 'Develop a UI component library.', stars: 4, details: 'Create a library of reusable UI components to speed up development.' },
-                        { text: 'Create a CSS framework.', stars: 3, details: 'Develop a lightweight CSS framework for modern web development.' },
-                        { text: 'Offer web performance optimization consulting.', stars: 5, details: 'Consulting services to improve website speed and performance.' },
-                        { text: 'Build a portfolio showcasing tool.', stars: 2, details: 'Develop a tool for developers to showcase their projects and skills.' },
-                        { text: 'Create a frontend testing framework.', stars: 5, details: 'Develop a framework for testing frontend applications.' },
-                        { text: 'Develop a responsive design toolkit.', stars: 4, details: 'Create tools to help developers build responsive websites.' },
-                        { text: 'Offer freelance frontend services.', stars: 3, details: 'Provide freelance services for frontend development projects.' },
-                        { text: 'Create a frontend mentoring program.', stars: 2, details: 'Mentoring program for aspiring frontend developers.' },
-                        { text: 'Develop a web accessibility tool.', stars: 4, details: 'Tool to help developers ensure their websites are accessible to all users.' },
-                        { text: 'Create a frontend design system.', stars: 5, details: 'Develop a comprehensive design system for frontend development.' }
-                    ];
-                } else {
-                    ideas = [
-                        { text: 'Offer web performance optimization consulting.', stars: 5, details: 'Consulting services to improve website speed and performance.' },
-                        { text: 'Develop a UI component library.', stars: 4, details: 'Create a library of reusable UI components to speed up development.' },
-                        { text: 'Create a CSS framework.', stars: 3, details: 'Develop a lightweight CSS framework for modern web development.' },
-                        { text: 'Build a portfolio showcasing tool.', stars: 2, details: 'Develop a tool for developers to showcase their projects and skills.' },
-                        { text: 'Create a frontend testing framework.', stars: 5, details: 'Develop a framework for testing frontend applications.' },
-                        { text: 'Develop a responsive design toolkit.', stars: 4, details: 'Create tools to help developers build responsive websites.' },
-                        { text: 'Offer freelance frontend services.', stars: 3, details: 'Provide freelance services for frontend development projects.' },
-                        { text: 'Create a frontend mentoring program.', stars: 2, details: 'Mentoring program for aspiring frontend developers.' },
-                        { text: 'Develop a web accessibility tool.', stars: 4, details: 'Tool to help developers ensure their websites are accessible to all users.' },
-                        { text: 'Create a frontend design system.', stars: 5, details: 'Develop a comprehensive design system for frontend development.' }
-                    ];
-                }
-            } else if (profile === 'backend') {
-                if (experience === '1-3') {
-                    ideas = [
-                        { text: 'API services for startups.', stars: 4, details: 'Provide API development services for startup companies.' },
-                        { text: 'Database management platform.', stars: 3, details: 'Develop a platform for managing databases efficiently.' },
-                        { text: 'Microservices architecture consulting.', stars: 5, details: 'Consulting services for designing microservices architectures.' },
-                        { text: 'Develop a backend framework.', stars: 4, details: 'Create a framework to simplify backend development.' },
-                        { text: 'Create a cloud integration service.', stars: 3, details: 'Service to integrate applications with cloud platforms.' },
-                        { text: 'Offer backend security solutions.', stars: 5, details: 'Security solutions for backend systems.' },
-                        { text: 'Develop a serverless application toolkit.', stars: 4, details: 'Toolkit for building serverless applications.' },
-                        { text: 'Create a backend testing framework.', stars: 3, details: 'Framework for testing backend applications.' },
-                        { text: 'Offer freelance backend services.', stars: 2, details: 'Provide freelance services for backend development projects.' },
-                        { text: 'Develop a backend mentoring program.', stars: 2, details: 'Mentoring program for aspiring backend developers.' }
-                    ];
-                } else if (experience === '3-5') {
-                    ideas = [
-                        { text: 'Database management platform.', stars: 3, details: 'Develop a platform for managing databases efficiently.' },
-                        { text: 'Microservices architecture consulting.', stars: 5, details: 'Consulting services for designing microservices architectures.' },
-                        { text: 'Develop a backend framework.', stars: 4, details: 'Create a framework to simplify backend development.' },
-                        { text: 'Create a cloud integration service.', stars: 3, details: 'Service to integrate applications with cloud platforms.' },
-                        { text: 'Offer backend security solutions.', stars: 5, details: 'Security solutions for backend systems.' },
-                        { text: 'Develop a serverless application toolkit.', stars: 4, details: 'Toolkit for building serverless applications.' },
-                        { text: 'Create a backend testing framework.', stars: 3, details: 'Framework for testing backend applications.' },
-                        { text: 'Offer freelance backend services.', stars: 2, details: 'Provide freelance services for backend development projects.' },
-                        { text: 'Develop a backend mentoring program.', stars: 2, details: 'Mentoring program for aspiring backend developers.' },
-                        { text: 'Create a backend design system.', stars: 5, details: 'Develop a comprehensive design system for backend development.' }
-                    ];
-                } else {
-                    ideas = [
-                        { text: 'Microservices architecture consulting.', stars: 5, details: 'Consulting services for designing microservices architectures.' },
-                        { text: 'Develop a backend framework.', stars: 4, details: 'Create a framework to simplify backend development.' },
-                        { text: 'Create a cloud integration service.', stars: 3, details: 'Service to integrate applications with cloud platforms.' },
-                        { text: 'Offer backend security solutions.', stars: 5, details: 'Security solutions for backend systems.' },
-                        { text: 'Develop a serverless application toolkit.', stars: 4, details: 'Toolkit for building serverless applications.' },
-                        { text: 'Create a backend testing framework.', stars: 3, details: 'Framework for testing backend applications.' },
-                        { text: 'Offer freelance backend services.', stars: 2, details: 'Provide freelance services for backend development projects.' },
-                        { text: 'Develop a backend mentoring program.', stars: 2, details: 'Mentoring program for aspiring backend developers.' },
-                        { text: 'Create a backend design system.', stars: 5, details: 'Develop a comprehensive design system for backend development.' },
-                        { text: 'Database management platform.', stars: 3, details: 'Develop a platform for managing databases efficiently.' }
-                    ];
-                }
-            } else if (profile === 'data') {
-                if (experience === '1-3') {
-                    ideas = [
-                        { text: 'Data analysis for small businesses.', stars: 3, details: 'Provide data analysis services for small businesses.' },
-                        { text: 'Develop predictive models.', stars: 4, details: 'Create predictive models for various industries.' },
-                        { text: 'Big data strategy consulting.', stars: 5, details: 'Consulting services for big data strategy development.' },
-                        { text: 'Create a data visualization tool.', stars: 4, details: 'Tool for visualizing complex data sets.' },
-                        { text: 'Offer data cleaning services.', stars: 3, details: 'Services to clean and organize data.' },
-                        { text: 'Develop a data integration platform.', stars: 4, details: 'Platform for integrating data from multiple sources.' },
-                        { text: 'Create a data science toolkit.', stars: 5, details: 'Toolkit for data science projects.' },
-                        { text: 'Offer freelance data analysis services.', stars: 2, details: 'Provide freelance data analysis services.' },
-                        { text: 'Develop a data mentoring program.', stars: 2, details: 'Mentoring program for aspiring data scientists.' },
-                        { text: 'Create a data security solution.', stars: 5, details: 'Solutions for securing sensitive data.' }
-                    ];
-                } else if (experience === '3-5') {
-                    ideas = [
-                        { text: 'Develop predictive models.', stars: 4, details: 'Create predictive models for various industries.' },
-                        { text: 'Big data strategy consulting.', stars: 5, details: 'Consulting services for big data strategy development.' },
-                        { text: 'Create a data visualization tool.', stars: 4, details: 'Tool for visualizing complex data sets.' },
-                        { text: 'Offer data cleaning services.', stars: 3, details: 'Services to clean and organize data.' },
-                        { text: 'Develop a data integration platform.', stars: 4, details: 'Platform for integrating data from multiple sources.' },
-                        { text: 'Create a data science toolkit.', stars: 5, details: 'Toolkit for data science projects.' },
-                        { text: 'Offer freelance data analysis services.', stars: 2, details: 'Provide freelance data analysis services.' },
-                        { text: 'Develop a data mentoring program.', stars: 2, details: 'Mentoring program for aspiring data scientists.' },
-                        { text: 'Create a data security solution.', stars: 5, details: 'Solutions for securing sensitive data.' },
-                        { text: 'Data analysis for small businesses.', stars: 3, details: 'Provide data analysis services for small businesses.' }
-                    ];
-                } else {
-                    ideas = [
-                        { text: 'Big data strategy consulting.', stars: 5, details: 'Consulting services for big data strategy development.' },
-                        { text: 'Create a data visualization tool.', stars: 4, details: 'Tool for visualizing complex data sets.' },
-                        { text: 'Offer data cleaning services.', stars: 3, details: 'Services to clean and organize data.' },
-                        { text: 'Develop a data integration platform.', stars: 4, details: 'Platform for integrating data from multiple sources.' },
-                        { text: 'Create a data science toolkit.', stars: 5, details: 'Toolkit for data science projects.' },
-                        { text: 'Offer freelance data analysis services.', stars: 2, details: 'Provide freelance data analysis services.' },
-                        { text: 'Develop a data mentoring program.', stars: 2, details: 'Mentoring program for aspiring data scientists.' },
-                        { text: 'Create a data security solution.', stars: 5, details: 'Solutions for securing sensitive data.' },
-                        { text: 'Data analysis for small businesses.', stars: 3, details: 'Provide data analysis services for small businesses.' },
-                        { text: 'Develop predictive models.', stars: 4, details: 'Create predictive models for various industries.' }
-                    ];
+                    // Crear el header con el título y las estrellas
+                    const header = document.createElement('div');
+                    header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+
+                    // Título
+                    const title = document.createElement('h4');
+                    title.classList.add('text-lg', 'font-bold', 'text-gray-900');
+                    title.textContent = idea.text;
+
+                    // Estrellas
+                    const starsContainer = document.createElement('div');
+                    starsContainer.classList.add('flex', 'items-center');
+                    for (let j = 0; j < 5; j++) {
+                        const star = document.createElement('span');
+                        star.classList.add(j < idea.stars ? 'text-yellow-500' : 'text-gray-300');
+                        star.textContent = '★';
+                        starsContainer.appendChild(star);
+                    }
+
+                    header.appendChild(title);
+                    header.appendChild(starsContainer);
+
+                    // Descripción breve
+                    const description = document.createElement('p');
+                    description.classList.add('text-sm', 'text-gray-600');
+                    description.textContent = idea.details;
+
+                    li.appendChild(header);
+                    li.appendChild(description);
+                    ideasList.appendChild(li);
+
+                    // Agregar evento click para mostrar más detalles
+                    li.addEventListener('click', () => showIdeaDetails(idea));
                 }
             }
 
-            // Añadir ideas a la lista con estrellas
-            ideas.forEach(idea => {
+            // Si no hay ideas, mostrar mensaje
+            if (ideasList.children.length === 0) {
                 const li = document.createElement('li');
-                li.classList.add('bg-white', 'p-3', 'rounded-lg', 'shadow-sm', 'hover:shadow-md', 'transition', 'cursor-pointer', 'flex', 'items-center', 'gap-2');
+                li.classList.add('text-gray-600', 'text-center', 'py-4');
+                li.textContent = 'No se encontraron ideas para esta combinación. ¡Intenta con otros filtros!';
+                ideasList.appendChild(li);
+            }
 
-                const starsContainer = document.createElement('div');
-                starsContainer.classList.add('flex', 'items-center');
+            // Mostrar las nuevas ideas con animación
+            businessIdeas.classList.remove('hidden');
+            // Usar setTimeout para asegurar que la transición funcione
+            setTimeout(() => {
+                businessIdeas.classList.remove('scale-95', 'opacity-0');
+                selectionCard.classList.add('translate-x-[-20%]');
+            }, 50);
+        });
 
-                for (let i = 0; i < 5; i++) {
-                    const star = document.createElement('span');
-                    star.classList.add('text-yellow-500');
-                    star.innerHTML = i < idea.stars ? '★' : '☆';
-                    starsContainer.appendChild(star);
+        // Nuevo manejador para el botón de feedback
+        document.getElementById('openFeedback').addEventListener('click', function() {
+            const feedbackCard = document.getElementById('feedbackCard');
+            feedbackCard.classList.remove('-translate-y-full');
+        });
+
+        // Mantener el resto de la lógica del feedback
+        document.getElementById('closeFeedback').addEventListener('click', function() {
+            const feedbackCard = document.getElementById('feedbackCard');
+            feedbackCard.classList.add('-translate-y-full');
+        });
+
+        // Manejar el rating con estrellas
+        document.getElementById('ratingStars').addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON') {
+                const rating = e.target.dataset.rating;
+                const stars = this.getElementsByTagName('button');
+                
+                // Resetear todas las estrellas
+                Array.from(stars).forEach(star => {
+                    star.classList.remove('text-yellow-500');
+                    star.classList.add('text-gray-300');
+                });
+                
+                // Colorear hasta la estrella seleccionada
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.remove('text-gray-300');
+                    stars[i].classList.add('text-yellow-500');
+                }
+            }
+        });
+
+        // Manejar el envío del feedback
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const feedbackContent = this.innerHTML;
+            this.innerHTML = `
+                <div class="flex items-center justify-center py-4 gap-4">
+                    <div class="text-4xl">🎉</div>
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900">¡Gracias por tu feedback!</h4>
+                        <p class="text-gray-600">Tus comentarios nos ayudan a mejorar.</p>
+                    </div>
+                </div>
+            `;
+            
+            // Cerrar automáticamente después de 3 segundos
+            setTimeout(() => {
+                document.getElementById('feedbackCard').classList.add('-translate-y-full');
+                // Restaurar el formulario después de que se oculte
+                setTimeout(() => {
+                    this.innerHTML = feedbackContent;
+                }, 500);
+            }, 3000);
+        });
+
+        // Modificar la función de mostrar el modal para incluir las animaciones
+        function showIdeaDetails(idea) {
+            if (!idea) return;
+
+            const modal = document.getElementById('ideaModal');
+            if (!modal) return;
+
+            // Verificar que todos los elementos existen antes de actualizarlos
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const modalProblem = document.getElementById('modalProblem');
+            const modalMonetization = document.getElementById('modalMonetization');
+            const modalQuestions = document.getElementById('modalQuestions');
+
+            if (!modalTitle || !modalContent || !modalProblem || !modalMonetization || !modalQuestions) {
+                console.error('Elementos del modal no encontrados');
+                return;
+            }
+
+            try {
+                // Actualizar contenido
+                modalTitle.textContent = idea.text || '';
+                modalContent.textContent = idea.details || '';
+                modalProblem.textContent = idea.problem || '';
+                
+                // Actualizar monetización
+                if (Array.isArray(idea.monetization)) {
+                    modalMonetization.innerHTML = idea.monetization
+                        .filter(item => item) // Filtrar items nulos
+                        .join('<br>');
+                } else {
+                    modalMonetization.textContent = idea.monetization || '';
+                }
+                
+                // Actualizar preguntas
+                if (Array.isArray(idea.questions)) {
+                    modalQuestions.innerHTML = idea.questions
+                        .filter(q => q) // Filtrar preguntas nulas
+                        .map(q => `<li class="mb-2">${q}</li>`)
+                        .join('');
+                } else {
+                    modalQuestions.innerHTML = '';
                 }
 
-                const ideaText = document.createElement('span');
-                ideaText.textContent = idea.text;
+                // Mostrar modal
+                modal.classList.remove('hidden', 'opacity-0');
+            } catch (error) {
+                console.error('Error al mostrar los detalles:', error);
+            }
+        }
 
-                li.appendChild(starsContainer);
-                li.appendChild(ideaText);
-                ideasList.appendChild(li);
+        // Modificar el cierre del modal para incluir las animaciones
+        function closeModal() {
+            const modal = document.getElementById('ideaModal');
+            const modalContent = document.querySelector('div');
+            
+            // Animar el cierre
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95', 'translate-y-4');
+            
+            // Ocultar después de la animación
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
 
-                // Añadir evento para abrir el modal
-                li.addEventListener('click', function() {
-                    document.getElementById('modalTitle').textContent = idea.text;
-                    document.getElementById('modalContent').textContent = idea.details;
-                    document.getElementById('ideaModal').classList.remove('hidden');
-                });
-            });
+        // Actualizar los event listeners para usar la nueva función de cierre
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+
+        document.getElementById('ideaModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
         });
 
-        // Cerrar el modal
-        document.getElementById('closeModal').addEventListener('click', function() {
-            document.getElementById('ideaModal').classList.add('hidden');
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
         });
 
-        // Lógica para el carrusel
-        let currentIndex = 0;
-        const carouselItems = document.getElementById('carouselItems');
-        const totalItems = carouselItems.children.length;
+        // Agregar listener para el cambio de selección
+        document.getElementById('profile').addEventListener('change', cleanupModal);
+        document.getElementById('experience').addEventListener('change', cleanupModal);
+        document.getElementById('development').addEventListener('change', cleanupModal);
 
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % totalItems;
-            carouselItems.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }, 5000); // Cambia cada 5 segundos
+        function cleanupModal() {
+            const modal = document.getElementById('ideaModal');
+            if (modal) {
+                modal.classList.add('hidden', 'opacity-0');
+            }
+        }
+
+        function generateIdea(profile, experience, development) {
+            try {
+                // Obtener las ideas correspondientes al perfil
+                const profileIdeas = ideaTemplates[profile];
+                if (!profileIdeas || !profileIdeas.length) return null;
+
+                // Encontrar la categoría correcta
+                const category = profileIdeas.find(cat => cat.category === development);
+                if (!category?.products?.length) return null;
+
+                // Seleccionar un producto aleatorio
+                const randomProduct = category.products[Math.floor(Math.random() * category.products.length)];
+                if (!randomProduct) return null;
+
+                // Seleccionar un tipo aleatorio
+                const randomType = randomProduct.types[Math.floor(Math.random() * randomProduct.types.length)];
+
+                // Crear la idea con datos mínimos necesarios
+                return {
+                    text: randomProduct.base.replace('{type}', randomType),
+                    details: randomProduct.details.replace('{type}', randomType),
+                    stars: Math.floor(Math.random() * 2) + 4,
+                    monetization: randomProduct.monetization
+                        .slice(0, 3) // Limitar a 3 planes
+                        .map(m => `${m.plan}: ${m.price}${m.limit ? ` (${m.limit})` : ''}`),
+                    problem: randomProduct.problem,
+                    questions: randomProduct.questions.slice(0, 5) // Limitar a 5 preguntas
+                };
+            } catch (error) {
+                console.error('Error generando idea:', error);
+                return null;
+            }
+        }
+
+        // Asegurarse de que el modal existe en el HTML
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar que el modal y sus elementos existen
+            const requiredElements = [
+                'ideaModal',
+                'modalTitle',
+                'modalContent',
+                'modalProblem',
+                'modalMonetization',
+                'modalQuestions'
+            ];
+
+            const missingElements = requiredElements.filter(id => !document.getElementById(id));
+            
+            if (missingElements.length > 0) {
+                console.error('Elementos faltantes:', missingElements);
+            }
+        });
+
+        // Función para actualizar los créditos
+        function updateCredits(newCredits) {
+            document.getElementById('creditCount').textContent = newCredits;
+        }
+
+        // Ejemplo de uso: actualizar créditos a 6
+        // updateCredits(6);
     </script>
 </body>
 </html>
