@@ -21,12 +21,14 @@
 <body class="gradient-bg min-h-screen flex flex-col">
     <div class="flex justify-between items-center w-full p-4 mb-12">
         <div class="flex items-center gap-2">
-            <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
+            <a href="index.html">
+                <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
+            </a>
             <span class="font-semibold text-gray-700">DevGrowth</span>
         </div>
         <!-- Botón de Créditos -->
         <button id="creditButton" class="bg-purple-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-purple-700 transition-all">
-            Créditos: <span id="creditCount">3</span>
+            Créditos: <span id="creditCount">5</span>
         </button>
     </div>
    
@@ -36,37 +38,50 @@
         <!-- Formulario de Filtrado -->
         <form id="filterForm" class="flex flex-wrap gap-4 mb-4">
             <div class="flex-1 min-w-[150px]">
-                <label for="profile" class="block text-left text-gray-700 font-medium">Profile</label>
-                <select id="profile" class="w-full px-3 py-2 border rounded-lg">
+                    <label for="profile" class="block text-left text-gray-700 font-medium">Profile</label>
+                    <select id="profile" class="w-full px-3 py-2 border rounded-lg">
                     <option value="all">All</option>
-                    <option value="frontend">Frontend</option>
-                    <option value="backend">Backend</option>
-                    <option value="data">Data</option>
-                </select>
-            </div>
+                        <option value="frontend">Frontend</option>
+                        <option value="backend">Backend</option>
+                        <option value="data">Data</option>
+                    </select>
+                </div>
             <div class="flex-1 min-w-[150px]">
-                <label for="experience" class="block text-left text-gray-700 font-medium">Experience</label>
-                <select id="experience" class="w-full px-3 py-2 border rounded-lg">
+                    <label for="experience" class="block text-left text-gray-700 font-medium">Experience</label>
+                    <select id="experience" class="w-full px-3 py-2 border rounded-lg">
                     <option value="all">All</option>
-                    <option value="1-3">1-3 years</option>
-                    <option value="3-5">3-5 years</option>
-                    <option value=">5">More than 5 years</option>
-                </select>
-            </div>
+                        <option value="1-3">1-3 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value=">5">More than 5 years</option>
+                    </select>
+                </div>
             <div class="flex-1 min-w-[150px]">
                 <label for="development" class="block text-left text-gray-700 font-medium">Development</label>
-                <select id="development" class="w-full px-3 py-2 border rounded-lg">
+                    <select id="development" class="w-full px-3 py-2 border rounded-lg">
                     <option value="all">All</option>
-                    <option value="extension">Extension</option>
-                    <option value="saas">SaaS</option>
-                    <option value="product">Product</option>
-                </select>
-            </div>
+                        <option value="extension">Extension</option>
+                        <option value="saas">SaaS</option>
+                        <option value="product">Product</option>
+                    </select>
+                </div>
             <button type="button" id="applyFilters" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Filtrar</button>
-        </form>
+            </form>
 
         <!-- Lista de Ideas de Negocio -->
         <ul id="ideasList" class="list-none pl-0 space-y-4 max-h-60 overflow-y-auto"></ul>
+        </div>
+
+    <!-- Modal de bloqueo -->
+    <div id="blockModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-4">Has alcanzado el límite de intentos</h2>
+            <p class="text-gray-700 mb-4">Vuelve mañana para más intentos o suscríbete por $5 para acceso ilimitado.</p>
+            <button id="subscribeButton" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbPXCoi-beZCzwmwGt0auVPv21i__5xHGgEvAaY1mdX942iQ/viewform?usp=header" target="_blank" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                    Enviar Feedback
+                </a>
+            </button>
+        </div>
     </div>
 
     <!-- Botón flotante para abrir el feedback -->
@@ -87,51 +102,7 @@
                 <div class="flex-grow">
                     <h3 class="text-xl font-bold mb-4 text-gray-900">¡Ayúdanos a mejorar!</h3>
                     
-                    <form id="feedbackForm" class="space-y-4">
-                        <!-- Rating con estrellas -->
-                        <div class="flex items-center gap-4">
-                            <label class="text-gray-700 font-medium whitespace-nowrap">¿Qué te parecieron las ideas?</label>
-                            <div class="flex space-x-2" id="ratingStars">
-                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="1">★</button>
-                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="2">★</button>
-                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="3">★</button>
-                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="4">★</button>
-                                <button type="button" class="text-2xl text-gray-300 hover:text-yellow-500 focus:outline-none transition-colors" data-rating="5">★</button>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <!-- Comentarios -->
-                            <div class="flex-grow">
-                                <label for="feedbackComment" class="block text-gray-700 font-medium mb-2">¿Tienes alguna sugerencia?</label>
-                                <textarea 
-                                    id="feedbackComment" 
-                                    rows="2" 
-                                    class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    placeholder="Comparte tus ideas o sugerencias..."></textarea>
-                            </div>
-
-                            <!-- Email (opcional) -->
-                            <div class="w-1/3">
-                                <label for="feedbackEmail" class="block text-gray-700 font-medium mb-2">
-                                    Email (opcional)
-                                    <span class="text-sm text-gray-500 font-normal block">Para notificarte cuando implementemos tu sugerencia</span>
-                                </label>
-                                <input 
-                                    type="email" 
-                                    id="feedbackEmail" 
-                                    class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                    placeholder="tu@email.com">
-                            </div>
-                        </div>
-
-                        <!-- Botón de envío -->
-                        <button 
-                            type="submit" 
-                            class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-                            Enviar Feedback
-                        </button>
-                    </form>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdbPXCoi-beZCzwmwGt0auVPv21i__5xHGgEvAaY1mdX942iQ/viewform?usp=header" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
                 </div>
                 
                 <!-- Botón para cerrar -->
@@ -507,52 +478,52 @@
             const experience = document.getElementById('experience').value;
             const development = document.getElementById('development').value;
             const ideasList = document.getElementById('ideasList');
-
+            
             // Limpiar la lista anterior
             ideasList.innerHTML = '';
-
+            
             // Generar nuevas ideas basadas en los filtros
             const filteredIdeas = generateFilteredIdeas(profile, experience, development);
             filteredIdeas.forEach(idea => {
-                const li = document.createElement('li');
-                li.classList.add(
-                    'bg-white', 'p-4', 'rounded-lg', 'shadow-md', 
-                    'hover:shadow-lg', 'transition', 'cursor-pointer', 'mb-4'
-                );
+                    const li = document.createElement('li');
+                    li.classList.add(
+                        'bg-white', 'p-4', 'rounded-lg', 'shadow-md', 
+                        'hover:shadow-lg', 'transition', 'cursor-pointer', 'mb-4'
+                    );
 
-                // Crear el header con el título y las estrellas
-                const header = document.createElement('div');
-                header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+                    // Crear el header con el título y las estrellas
+                    const header = document.createElement('div');
+                    header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
 
-                // Título
-                const title = document.createElement('h4');
-                title.classList.add('text-lg', 'font-bold', 'text-gray-900');
-                title.textContent = idea.text;
+                    // Título
+                    const title = document.createElement('h4');
+                    title.classList.add('text-lg', 'font-bold', 'text-gray-900');
+                    title.textContent = idea.text;
 
-                // Estrellas
-                const starsContainer = document.createElement('div');
-                starsContainer.classList.add('flex', 'items-center');
-                for (let j = 0; j < 5; j++) {
-                    const star = document.createElement('span');
-                    star.classList.add(j < idea.stars ? 'text-yellow-500' : 'text-gray-300');
-                    star.textContent = '★';
-                    starsContainer.appendChild(star);
-                }
+                    // Estrellas
+                    const starsContainer = document.createElement('div');
+                    starsContainer.classList.add('flex', 'items-center');
+                    for (let j = 0; j < 5; j++) {
+                        const star = document.createElement('span');
+                        star.classList.add(j < idea.stars ? 'text-yellow-500' : 'text-gray-300');
+                        star.textContent = '★';
+                        starsContainer.appendChild(star);
+                    }
 
-                header.appendChild(title);
-                header.appendChild(starsContainer);
+                    header.appendChild(title);
+                    header.appendChild(starsContainer);
 
-                // Descripción breve
-                const description = document.createElement('p');
-                description.classList.add('text-sm', 'text-gray-600');
-                description.textContent = idea.details;
+                    // Descripción breve
+                    const description = document.createElement('p');
+                    description.classList.add('text-sm', 'text-gray-600');
+                    description.textContent = idea.details;
 
-                li.appendChild(header);
-                li.appendChild(description);
-                ideasList.appendChild(li);
+                    li.appendChild(header);
+                    li.appendChild(description);
+                    ideasList.appendChild(li);
 
-                // Agregar evento click para mostrar más detalles
-                li.addEventListener('click', () => showIdeaDetails(idea));
+                    // Agregar evento click para mostrar más detalles
+                    li.addEventListener('click', () => showIdeaDetails(idea));
             });
 
             // Si no hay ideas, mostrar mensaje
@@ -624,28 +595,24 @@
         });
 
         // Manejar el envío del feedback
+        function sendFeedback(feedback, email) {
+            fetch('https://cors-anywhere.herokuapp.com/YOUR_SCRIPT_URL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ feedback: feedback, email: email })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const feedbackContent = this.innerHTML;
-            this.innerHTML = `
-                <div class="flex items-center justify-center py-4 gap-4">
-                    <div class="text-4xl">🎉</div>
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900">¡Gracias por tu feedback!</h4>
-                        <p class="text-gray-600">Tus comentarios nos ayudan a mejorar.</p>
-                    </div>
-                </div>
-            `;
-            
-            // Cerrar automáticamente después de 3 segundos
-            setTimeout(() => {
-                document.getElementById('feedbackCard').classList.add('-translate-y-full');
-                // Restaurar el formulario después de que se oculte
-                setTimeout(() => {
-                    this.innerHTML = feedbackContent;
-                }, 500);
-            }, 3000);
+            const feedback = document.getElementById('feedbackComment').value;
+            const email = document.getElementById('feedbackEmail').value;
+            sendFeedback(feedback, email);
         });
 
         // Modificar la función de mostrar el modal para incluir las animaciones
@@ -702,20 +669,19 @@
         // Modificar el cierre del modal para incluir las animaciones
         function closeModal() {
             const modal = document.getElementById('ideaModal');
-            const modalContent = document.querySelector('div');
-            
-            // Animar el cierre
-            modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95', 'translate-y-4');
-            
-            // Ocultar después de la animación
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
         }
 
         // Actualizar los event listeners para usar la nueva función de cierre
-        document.getElementById('closeModal').addEventListener('click', closeModal);
+        const closeModalButton = document.getElementById('closeModal');
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', closeModal);
+        }
 
         document.getElementById('ideaModal').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -743,7 +709,7 @@
 
         // Función para actualizar los créditos
         function updateCredits(newCredits) {
-            document.getElementById('creditCount').textContent = newCredits;
+            document.getElementById('creditCount').textContent = newCredits === 'unlimited' ? '∞' : newCredits;
         }
 
         // Ejemplo de uso: actualizar créditos a 6
@@ -807,6 +773,112 @@
 
         // Llamar a la función de inicialización al cargar la página
         document.addEventListener('DOMContentLoaded', initializeIdeas);
+
+        // Inicializar el contador de intentos
+        function initializeAttempts() {
+            if (!localStorage.getItem('attempts')) {
+                localStorage.setItem('attempts', '5');
+            }
+            updateCredits(localStorage.getItem('attempts'));
+        }
+
+        // Manejar el intento de aplicar filtros
+        function handleAttempt() {
+            let attempts = parseInt(localStorage.getItem('attempts'), 10);
+            console.log('Intentos antes de aplicar:', attempts);
+            if (attempts > 0) {
+                attempts -= 1;
+                localStorage.setItem('attempts', attempts.toString());
+                updateCredits(attempts);
+                console.log('Intentos después de aplicar:', attempts);
+                applyFilters();
+            } else {
+                showBlockModal();
+                disableInteractions();
+            }
+        }
+
+        // Mostrar modal de bloqueo
+        function showBlockModal() {
+            document.getElementById('blockModal').classList.remove('hidden');
+        }
+
+        // Desactivar interacciones
+        function disableInteractions() {
+            document.querySelectorAll('button, select').forEach(element => {
+                if (element.id !== 'openFeedback') {
+                    element.disabled = true;
+                }
+            });
+        }
+
+        // Función para aplicar filtros (ejemplo)
+        function applyFilters() {
+            // Lógica para aplicar filtros
+            console.log('Filtros aplicados');
+        }
+
+        document.getElementById('applyFilters').addEventListener('click', handleAttempt);
+
+        // Llamar a la función de inicialización al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeIdeas();
+            initializeAttempts();
+        });
+
+        // Simular suscripción
+        function registerPurchase() {
+            fetch('https://cors-anywhere.herokuapp.com/YOUR_SCRIPT_URL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amount: 5, user: 'anonymous' })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Llama a esta función cuando el usuario haga clic en el botón de suscripción
+        document.getElementById('subscribeButton').addEventListener('click', function() {
+            registerPurchase();
+            alert('Gracias por suscribirte. Ahora tienes acceso ilimitado.');
+            localStorage.setItem('attempts', 'unlimited');
+            document.getElementById('blockModal').classList.add('hidden');
+            enableInteractions();
+        });
+
+        // Habilitar interacciones
+        function enableInteractions() {
+            document.querySelectorAll('button, select').forEach(element => {
+                element.disabled = false;
+            });
+        }
+
+        // Verificar el tamaño de localStorage
+        function checkLocalStorageSize() {
+            let total = 0;
+            for (let x in localStorage) {
+                if (localStorage.hasOwnProperty(x)) {
+                    total += (localStorage[x].length * 2) / 1024 / 1024; // Convertir a MB
+                }
+            }
+            console.log("Total localStorage size: " + total.toFixed(2) + " MB");
+        }
+
+        // Llamar a la función para verificar el tamaño
+        checkLocalStorageSize();
+
+        // Limpiar elementos específicos si es necesario
+        function clearUnnecessaryLocalStorage() {
+            // Lista de claves que deseas eliminar
+            const keysToRemove = ['key1', 'key2', 'key3'];
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+        }
+
+        // Llamar a la función para limpiar
+        clearUnnecessaryLocalStorage();
     </script>
 </body>
 </html>

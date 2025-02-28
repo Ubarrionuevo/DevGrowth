@@ -14,6 +14,8 @@
             background: radial-gradient(circle at center, #f3e8ff 0%, #e9d5ff 100%);
         }
     </style>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body class="gradient-bg min-h-screen">
     <!-- Navbar -->
@@ -22,22 +24,13 @@
             <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
             <span class="font-semibold text-gray-700">DevGrowth</span>
         </div>
-        <div class="flex items-center gap-4">
-            <button onclick="signInWithGoogle()" class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition-all">
-                <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5">
-                <span class="text-gray-700">Sign in with Google</span>
-            </button>
-            <!-- Botón de Créditos -->
-            <button id="creditButton" class="bg-purple-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-purple-700 transition-all">
-                Créditos: <span id="creditCount">7</span>
-            </button>
-        </div>
+      
     </nav>
 
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-16 mt-8">
         <!-- Hero Section -->
-        <div class="text-center mb-16 mt-8">
+        <div class="text-center mb-24 mt-16">
             <h1 class="text-5xl font-bold text-gray-900 mb-6">
                 Genera Ideas de Proyectos Reales
                 <span class="block text-purple-600 mt-2">Para Tu Portfolio</span>
@@ -60,10 +53,14 @@
                     <span class="text-gray-700">Ideas validadas por el mercado</span>
                 </div>
             </div>
+            <!-- Botón de Comienza Gratis -->
+            <a href="mvp.html" class="inline-block bg-purple-600 text-white text-lg font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-purple-700 transition duration-300">
+                Comienza Gratis
+            </a>
         </div>
 
         <!-- How it Works Section -->
-        <div class="mb-16 mt-8">
+        <div class="mb-24 mt-16">
             <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">¿Cómo Funciona?</h2>
             <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                 <div class="text-center">
@@ -91,7 +88,7 @@
         </div>
 
         <!-- FAQ Section -->
-        <div class="mt-20 max-w-3xl mx-auto mt-8">
+        <div class="mt-24 mb-24 max-w-3xl mx-auto">
             <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Preguntas Frecuentes</h2>
             <div class="space-y-6">
                 <div class="bg-white p-6 rounded-lg shadow-sm">
@@ -116,9 +113,10 @@
     </footer>
 
     <script>
-        function signInWithGoogle() {
-            // Aquí iría la implementación de Google Sign-In
-            alert('Implementar Google Sign-In');
+        // Función para manejar la respuesta de credenciales de Google
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // Aquí puedes enviar el token al servidor o usarlo para autenticar al usuario
         }
 
         // Función para actualizar los créditos
