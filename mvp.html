@@ -13,6 +13,46 @@
         .gradient-bg {
             background: radial-gradient(circle at center, #f3e8ff 0%, #e9d5ff 100%);
         }
+        .checkbox-custom {
+            appearance: none;
+            background-color: #fff;
+            border: 1px solid #d1d5db;
+            padding: 8px;
+            border-radius: 4px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .checkbox-custom:checked {
+            background-color: #6b46c1;
+            border-color: #6b46c1;
+        }
+        .checkbox-custom:checked::after {
+            content: '✔';
+            font-size: 12px;
+            color: #fff;
+            position: absolute;
+            top: 2px;
+            left: 4px;
+        }
+        .idea-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .idea-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .idea-details {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+        .idea-details.open {
+            max-height: 500px; /* Ajusta según el contenido */
+            opacity: 1;
+        }
     </style>
     
 </head>
@@ -26,46 +66,33 @@
             </a>
             <span class="font-semibold text-gray-700">DevGrowth</span>
         </div>
-        <!-- Botón de Créditos -->
-        <button id="creditButton" class="bg-purple-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-purple-700 transition-all">
-            Créditos: <span id="creditCount">5</span>
-        </button>
+       
     </div>
    
 
-    <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto text-left text-gray-700 transform transition-transform duration-500 ease-in-out mt-8">
+    <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto text-left text-gray-700 transform transition-transform duration-500 ease-in-out mt-2">
         <h3 class="text-xl font-bold mb-4">Business Ideas</h3>
-        <!-- Formulario de Filtrado -->
-        <form id="filterForm" class="flex flex-wrap gap-4 mb-4">
-            <div class="flex-1 min-w-[150px]">
-                    <label for="profile" class="block text-left text-gray-700 font-medium">Profile</label>
-                    <select id="profile" class="w-full px-3 py-2 border rounded-lg">
-                    <option value="all">All</option>
-                        <option value="frontend">Frontend</option>
-                        <option value="backend">Backend</option>
-                        <option value="data">Data</option>
-                    </select>
-                </div>
-            <div class="flex-1 min-w-[150px]">
-                    <label for="experience" class="block text-left text-gray-700 font-medium">Experience</label>
-                    <select id="experience" class="w-full px-3 py-2 border rounded-lg">
-                    <option value="all">All</option>
-                        <option value="1-3">1-3 years</option>
-                        <option value="3-5">3-5 years</option>
-                        <option value=">5">More than 5 years</option>
-                    </select>
-                </div>
-            <div class="flex-1 min-w-[150px]">
-                <label for="development" class="block text-left text-gray-700 font-medium">Development</label>
-                    <select id="development" class="w-full px-3 py-2 border rounded-lg">
-                    <option value="all">All</option>
-                        <option value="extension">Extension</option>
-                        <option value="saas">SaaS</option>
-                        <option value="product">Product</option>
-                    </select>
-                </div>
-            <button type="button" id="applyFilters" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">Filtrar</button>
-            </form>
+        <!-- Checkboxes de Filtrado -->
+        <div id="filterCheckboxes" class="flex flex-wrap gap-4 mb-4">
+            <div>
+                <h4 class="font-medium">Profile</h4>
+                <label><input type="checkbox" value="frontend" class="profile-filter checkbox-custom"> Frontend</label><br>
+                <label><input type="checkbox" value="backend" class="profile-filter checkbox-custom"> Backend</label><br>
+                <label><input type="checkbox" value="data" class="profile-filter checkbox-custom"> Data</label>
+            </div>
+            <div>
+                <h4 class="font-medium">Experience</h4>
+                <label><input type="checkbox" value="1-3" class="experience-filter checkbox-custom"> 1-3 years</label><br>
+                <label><input type="checkbox" value="3-5" class="experience-filter checkbox-custom"> 3-5 years</label><br>
+                <label><input type="checkbox" value=">5" class="experience-filter checkbox-custom"> More than 5 years</label>
+            </div>
+            <div>
+                <h4 class="font-medium">Development</h4>
+                <label><input type="checkbox" value="extension" class="development-filter checkbox-custom"> Extension</label><br>
+                <label><input type="checkbox" value="saas" class="development-filter checkbox-custom"> SaaS</label><br>
+                <label><input type="checkbox" value="product" class="development-filter checkbox-custom"> Product</label>
+            </div>
+        </div>
 
         <!-- Lista de Ideas de Negocio -->
         <ul id="ideasList" class="list-none pl-0 space-y-4 max-h-60 overflow-y-auto"></ul>
@@ -473,94 +500,91 @@
             ]
         };
 
-        document.getElementById('applyFilters').addEventListener('click', function() {
-            const profile = document.getElementById('profile').value;
-            const experience = document.getElementById('experience').value;
-            const development = document.getElementById('development').value;
-            const ideasList = document.getElementById('ideasList');
-            
-            // Limpiar la lista anterior
-            ideasList.innerHTML = '';
-            
-            // Generar nuevas ideas basadas en los filtros
-            const filteredIdeas = generateFilteredIdeas(profile, experience, development);
-            filteredIdeas.forEach(idea => {
-                    const li = document.createElement('li');
-                    li.classList.add(
-                        'bg-white', 'p-4', 'rounded-lg', 'shadow-md', 
-                        'hover:shadow-lg', 'transition', 'cursor-pointer', 'mb-4'
-                    );
-
-                    // Crear el header con el título y las estrellas
-                    const header = document.createElement('div');
-                    header.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
-
-                    // Título
-                    const title = document.createElement('h4');
-                    title.classList.add('text-lg', 'font-bold', 'text-gray-900');
-                    title.textContent = idea.text;
-
-                    // Estrellas
-                    const starsContainer = document.createElement('div');
-                    starsContainer.classList.add('flex', 'items-center');
-                    for (let j = 0; j < 5; j++) {
-                        const star = document.createElement('span');
-                        star.classList.add(j < idea.stars ? 'text-yellow-500' : 'text-gray-300');
-                        star.textContent = '★';
-                        starsContainer.appendChild(star);
-                    }
-
-                    header.appendChild(title);
-                    header.appendChild(starsContainer);
-
-                    // Descripción breve
-                    const description = document.createElement('p');
-                    description.classList.add('text-sm', 'text-gray-600');
-                    description.textContent = idea.details;
-
-                    li.appendChild(header);
-                    li.appendChild(description);
-                    ideasList.appendChild(li);
-
-                    // Agregar evento click para mostrar más detalles
-                    li.addEventListener('click', () => showIdeaDetails(idea));
-            });
-
-            // Si no hay ideas, mostrar mensaje
-            if (ideasList.children.length === 0) {
-                const li = document.createElement('li');
-                li.classList.add('text-gray-600', 'text-center', 'py-4');
-                li.textContent = 'No se encontraron ideas para esta combinación. ¡Intenta con otros filtros!';
-                ideasList.appendChild(li);
-            }
-        });
-
-        function generateFilteredIdeas(profile, experience, development) {
+        function generateAllIdeas() {
             const ideas = [];
-            const profiles = profile === 'all' ? Object.keys(ideaTemplates) : [profile];
-            profiles.forEach(p => {
-                const profileIdeas = ideaTemplates[p];
-                profileIdeas.forEach(category => {
-                    if (development === 'all' || category.category === development) {
-                        category.products.forEach(product => {
-                            product.types.forEach(type => {
-                                ideas.push({
-                                    text: product.base.replace('{type}', type),
-                                    details: product.details.replace('{type}', type),
-                                    stars: Math.floor(Math.random() * 2) + 4,
-                                    monetization: product.monetization
-                                        .slice(0, 3) // Limitar a 3 planes
-                                        .map(m => `${m.plan}: ${m.price}${m.limit ? ` (${m.limit})` : ''}`),
-                                    problem: product.problem,
-                                    questions: product.questions.slice(0, 5) // Limitar a 5 preguntas
-                                });
+            Object.keys(ideaTemplates).forEach(profile => {
+                ideaTemplates[profile].forEach(category => {
+                    category.products.forEach(product => {
+                        product.types.forEach(type => {
+                            ideas.push({
+                                text: product.base.replace('{type}', type),
+                                details: product.details.replace('{type}', type),
+                                profile: profile,
+                                category: category.category,
+                                problem: product.problem,
+                                monetization: product.monetization,
+                                questions: product.questions
                             });
                         });
-                    }
+                    });
                 });
             });
             return ideas;
         }
+
+        function displayIdeas(ideas) {
+            const ideasList = document.getElementById('ideasList');
+            ideasList.innerHTML = '';
+            ideas.forEach(idea => {
+                const li = document.createElement('li');
+                li.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md', 'hover:shadow-lg', 'transition', 'cursor-pointer', 'mb-4', 'idea-item');
+                li.innerHTML = `
+                    <h4 class="text-lg font-bold text-gray-900">${idea.text}</h4>
+                    <p class="text-sm text-gray-600">${idea.details}</p>
+                    <button class="mt-2 text-purple-600 hover:underline ver-mas">Ver más</button>
+                    <div class="idea-details mt-2">
+                        <p class="text-gray-700"><strong>Problema:</strong> ${idea.problem}</p>
+                        <div class="mt-2">
+                            <strong>Monetización:</strong>
+                            <ul class="list-disc pl-5 text-gray-600">
+                                ${idea.monetization.map(m => `<li>${m.plan}: ${m.price} (${m.limit})</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="mt-2">
+                            <strong>Preguntas:</strong>
+                            <ul class="list-disc pl-5 text-gray-600">
+                                ${idea.questions.map(q => `<li>${q}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                ideasList.appendChild(li);
+
+                // Add event listener for "Ver más" button
+                li.querySelector('.ver-mas').addEventListener('click', function() {
+                    const details = li.querySelector('.idea-details');
+                    if (details.classList.contains('open')) {
+                        details.classList.remove('open');
+                        this.textContent = 'Ver más';
+                    } else {
+                        details.classList.add('open');
+                        this.textContent = 'Ver menos';
+                    }
+                });
+            });
+        }
+
+        function filterIdeas() {
+            const selectedProfiles = Array.from(document.querySelectorAll('.profile-filter:checked')).map(cb => cb.value);
+            const selectedExperiences = Array.from(document.querySelectorAll('.experience-filter:checked')).map(cb => cb.value);
+            const selectedDevelopments = Array.from(document.querySelectorAll('.development-filter:checked')).map(cb => cb.value);
+
+            const allIdeas = generateAllIdeas();
+            const filteredIdeas = allIdeas.filter(idea => {
+                const matchesProfile = selectedProfiles.length === 0 || selectedProfiles.includes(idea.profile);
+                const matchesDevelopment = selectedDevelopments.length === 0 || selectedDevelopments.includes(idea.category);
+                return matchesProfile && matchesDevelopment;
+            });
+
+            displayIdeas(filteredIdeas);
+        }
+
+        document.querySelectorAll('.profile-filter, .experience-filter, .development-filter').forEach(checkbox => {
+            checkbox.addEventListener('change', filterIdeas);
+        });
+
+        // Inicializar mostrando todas las ideas
+        displayIdeas(generateAllIdeas());
 
         // Nuevo manejador para el botón de feedback
         document.getElementById('openFeedback').addEventListener('click', function() {
