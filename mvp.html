@@ -62,11 +62,11 @@
     <div class="flex justify-between items-center w-full p-4 mb-12">
         <div class="flex items-center gap-2">
             <a href="index.html">
-                <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
+            <img src="/img/Dev (1).png" alt="Logo" class="w-8 h-8 rounded-2xl">
             </a>
             <span class="font-semibold text-gray-700">DevGrowth</span>
         </div>
-       
+      
     </div>
    
 
@@ -74,25 +74,15 @@
         <h3 class="text-xl font-bold mb-4">Business Ideas</h3>
         <!-- Checkboxes de Filtrado -->
         <div id="filterCheckboxes" class="flex flex-wrap gap-4 mb-4">
-            <div>
+                <div>
                 <h4 class="font-medium">Profile</h4>
-                <label><input type="checkbox" value="frontend" class="profile-filter checkbox-custom"> Frontend</label><br>
-                <label><input type="checkbox" value="backend" class="profile-filter checkbox-custom"> Backend</label><br>
-                <label><input type="checkbox" value="data" class="profile-filter checkbox-custom"> Data</label>
-            </div>
-            <div>
-                <h4 class="font-medium">Experience</h4>
-                <label><input type="checkbox" value="1-3" class="experience-filter checkbox-custom"> 1-3 years</label><br>
-                <label><input type="checkbox" value="3-5" class="experience-filter checkbox-custom"> 3-5 years</label><br>
-                <label><input type="checkbox" value=">5" class="experience-filter checkbox-custom"> More than 5 years</label>
-            </div>
-            <div>
-                <h4 class="font-medium">Development</h4>
-                <label><input type="checkbox" value="extension" class="development-filter checkbox-custom"> Extension</label><br>
-                <label><input type="checkbox" value="saas" class="development-filter checkbox-custom"> SaaS</label><br>
-                <label><input type="checkbox" value="product" class="development-filter checkbox-custom"> Product</label>
-            </div>
-        </div>
+                <div class="flex gap-4 mt-4">
+                    <label><input type="checkbox" value="frontend" class="profile-filter checkbox-custom"> Frontend</label>
+                    <label><input type="checkbox" value="backend" class="profile-filter checkbox-custom"> Backend</label>
+                    <label><input type="checkbox" value="data" class="profile-filter checkbox-custom"> Data</label>
+                </div>
+                </div>
+                </div>
 
         <!-- Lista de Ideas de Negocio -->
         <ul id="ideasList" class="list-none pl-0 space-y-4 max-h-60 overflow-y-auto"></ul>
@@ -179,322 +169,217 @@
         const ideaTemplates = {
             "frontend": [
                 {
-                    "category": "extension",
-                    "products": [
-                        {
-                            "base": "{type} Developer Tool",
-                            "types": ["Color Picker", "CSS Generator", "Responsive Tester", "Performance", "A11y", "Code Formatter"],
-                            "details": "Herramienta esencial para desarrollo {type}",
+                    "text": "Dashboard de estadísticas de empleo y postulaciones",
+                    "details": "Panel interactivo para visualizar y analizar el progreso en búsqueda de empleo",
+                    "problem": "Dificultad para hacer seguimiento efectivo de postulaciones",
                             "monetization": [
-                                { "plan": "Free", "price": "Gratis", "limit": "Funciones básicas" },
-                                { "plan": "Pro", "price": "$4.99/mes", "limit": "Funciones avanzadas" },
-                                { "plan": "Team", "price": "$3.99/usuario/mes", "limit": "Colaboración" }
+                        { "plan": "Free", "price": "Gratis", "limit": "5 postulaciones/mes" },
+                        { "plan": "Pro", "price": "$9.99/mes", "limit": "Postulaciones ilimitadas" }
                             ],
-                            "problem": "Desarrolladores necesitan herramientas especializadas para agilizar su trabajo diario",
                             "questions": [
-                                "¿Qué herramientas similares usas actualmente?",
-                                "¿Cuánto tiempo dedicas a estas tareas?",
-                                "¿Qué características te faltan en tus herramientas actuales?",
-                                "¿Trabajas en equipo o solo?",
-                                "¿Cuánto pagarías por una herramienta que te ahorre tiempo?"
-                            ]
-                        },
-                        {
-                            "base": "{type} Inspector",
-                            "types": ["Architecture", "Bundle Size", "Security", "Performance", "Code Quality"],
-                            "details": "Inspector avanzado de {type} para desarrollo web",
-                            "monetization": [
-                                { "plan": "Basic", "price": "Gratis", "limit": "3 proyectos" },
-                                { "plan": "Pro", "price": "$9.99/mes", "limit": "Proyectos ilimitados" },
-                                { "plan": "Enterprise", "price": "$49.99/mes", "limit": "Características avanzadas" }
-                            ],
-                            "problem": "Equipos necesitan analizar y optimizar su código frontend",
-                            "questions": [
-                                "¿Cómo inspeccionas tu código actualmente?",
-                                "¿Qué métricas son importantes para ti?",
-                                "¿Qué problemas son difíciles de detectar?",
-                                "¿Cómo manejas la calidad del código en equipo?",
-                                "¿Qué herramientas de análisis usas?"
-                            ]
-                        }
+                        "¿Cómo trackeas tus postulaciones actualmente?",
+                        "¿Qué métricas son más relevantes para ti?",
+                        "¿Te gustaría integración con LinkedIn?"
                     ]
                 },
                 {
-                    "category": "saas",
-                    "products": [
-                        {
-                            "base": "{type} Builder Platform",
-                            "types": ["Template", "Landing Page", "Portfolio", "Component", "Design System"],
-                            "details": "Plataforma para crear {type} profesionales",
+                    "text": "Interfaz para estimación de proyectos freelance",
+                    "details": "Herramienta visual para calcular costos y tiempos de proyectos",
+                    "problem": "Dificultad para estimar proyectos de manera precisa",
                             "monetization": [
-                                { "plan": "Starter", "price": "$29/mes", "limit": "5 proyectos" },
-                                { "plan": "Professional", "price": "$79/mes", "limit": "20 proyectos" },
-                                { "plan": "Agency", "price": "$199/mes", "limit": "Proyectos ilimitados" }
+                        { "plan": "Basic", "price": "Gratis", "limit": "3 proyectos/mes" },
+                        { "plan": "Pro", "price": "$14.99/mes", "limit": "Proyectos ilimitados" }
                             ],
-                            "problem": "Crear y mantener recursos frontend requiere mucho tiempo y experiencia",
                             "questions": [
-                                "¿Cómo creas estos recursos actualmente?",
-                                "¿Cuánto tiempo inviertes en cada proyecto?",
-                                "¿Qué frustraciones tienes con el proceso actual?",
-                                "¿Trabajas con diseñadores?",
-                                "¿Qué características te harían la vida más fácil?"
-                            ]
-                        },
-                        {
-                            "base": "{type} Management System",
-                            "types": ["Component", "Design Token", "Documentation", "Testing", "Deployment"],
-                            "details": "Sistema de gestión {type} para equipos frontend",
-                            "monetization": [
-                                { "plan": "Team", "price": "$99/mes", "limit": "10 usuarios" },
-                                { "plan": "Business", "price": "$249/mes", "limit": "50 usuarios" },
-                                { "plan": "Enterprise", "price": "Personalizado", "limit": "Características personalizadas" }
-                            ],
-                            "problem": "Equipos necesitan centralizar y gestionar recursos frontend",
-                            "questions": [
-                                "¿Cómo gestionas estos recursos ahora?",
-                                "¿Cuántas personas trabajan en tu equipo?",
-                                "¿Qué problemas de colaboración enfrentas?",
-                                "¿Cómo manejas las versiones?",
-                                "¿Qué procesos te gustaría automatizar?"
-                            ]
-                        }
+                        "¿Qué método usas para estimar proyectos?",
+                        "¿Qué factores consideras en tus estimaciones?",
+                        "¿Te gustaría integración con herramientas de gestión?"
                     ]
                 },
                 {
-                    "category": "product",
-                    "products": [
-                        {
-                            "base": "{type} Enterprise Solution",
-                            "types": ["Design System", "Component Library", "Frontend Platform", "CI/CD", "Monitoring"],
-                            "details": "Solución empresarial {type} completa",
+                    "text": "Web de rutinas de bienestar para programadores",
+                    "details": "Plataforma interactiva con ejercicios y pausas programadas",
+                    "problem": "Sedentarismo y problemas de salud en desarrolladores",
                             "monetization": [
-                                { "plan": "Licencia", "price": "$15,000/año", "limit": "1 equipo" },
-                                { "plan": "Enterprise", "price": "$45,000/año", "limit": "Múltiples equipos" },
-                                { "plan": "Global", "price": "Personalizado", "limit": "Organización completa" }
+                        { "plan": "Basic", "price": "Gratis", "limit": "Rutinas básicas" },
+                        { "plan": "Premium", "price": "$7.99/mes", "limit": "Rutinas personalizadas" }
                             ],
-                            "problem": "Empresas necesitan soluciones frontend escalables y mantenibles",
                             "questions": [
-                                "¿Qué soluciones usas actualmente?",
-                                "¿Cuántos desarrolladores tienen?",
-                                "¿Qué desafíos de escalabilidad enfrentas?",
-                                "¿Cómo manejas la consistencia?",
-                                "¿Qué costos tienes actualmente?"
-                            ]
-                        }
+                        "¿Qué problemas de salud te preocupan más?",
+                        "¿Cuántas pausas haces durante el día?",
+                        "¿Te interesaría seguimiento con profesionales?"
+                    ]
+                },
+                {
+                    "text": "Plataforma de gamificación para aprendizaje de código",
+                    "details": "Sistema interactivo que convierte el aprendizaje en un juego",
+                    "problem": "Dificultad para mantener la motivación al aprender",
+                            "monetization": [
+                        { "plan": "Free", "price": "Gratis", "limit": "Niveles básicos" },
+                        { "plan": "Pro", "price": "$12.99/mes", "limit": "Contenido completo" }
+                            ],
+                            "questions": [
+                        "¿Qué te motiva a aprender nuevas tecnologías?",
+                        "¿Qué tipo de recompensas te interesan más?",
+                        "¿Prefieres competir o colaborar con otros?"
+                    ]
+                },
+                {
+                    "text": "Sistema de feedback anónimo sobre entrevistas",
+                    "details": "Plataforma para compartir experiencias de entrevistas técnicas",
+                    "problem": "Falta de transparencia en procesos de entrevistas",
+                            "monetization": [
+                        { "plan": "Basic", "price": "Gratis", "limit": "Lectura de reviews" },
+                        { "plan": "Pro", "price": "$9.99/mes", "limit": "Análisis detallado" }
+                            ],
+                            "questions": [
+                        "¿Qué información te gustaría saber antes de una entrevista?",
+                        "¿Compartirías tu experiencia de forma anónima?",
+                        "¿Qué datos son más útiles para prepararse?"
                     ]
                 }
             ],
             "backend": [
                 {
-                    "category": "extension",
-                    "products": [
-                        {
-                            "base": "{type} Development Assistant",
-                            "types": ["API", "Database", "Log", "Performance", "Security"],
-                            "details": "Asistente de desarrollo {type} para backend",
+                    "text": "API de seguimiento de candidatos para empresas",
+                    "details": "Sistema automatizado para gestionar el pipeline de contratación",
+                    "problem": "Procesos de contratación ineficientes y desorganizados",
                             "monetization": [
-                                { "plan": "Free", "price": "Gratis", "limit": "Uso básico" },
-                                { "plan": "Pro", "price": "$7.99/mes", "limit": "Uso ilimitado" },
-                                { "plan": "Team", "price": "$5.99/usuario/mes", "limit": "Colaboración" }
+                        { "plan": "Startup", "price": "$49/mes", "limit": "50 candidatos" },
+                        { "plan": "Enterprise", "price": "$199/mes", "limit": "Candidatos ilimitados" }
                             ],
-                            "problem": "Desarrolladores backend necesitan herramientas para debugging y testing",
                             "questions": [
-                                "¿Qué herramientas de desarrollo usas?",
-                                "¿Cuánto tiempo dedicas a testing?",
-                                "¿Qué problemas son difíciles de debuggear?",
-                                "¿Cómo monitorizas el rendimiento?",
-                                "¿Qué características te faltan en tus herramientas?"
-                            ]
-                        },
-                        {
-                            "base": "{type} System Monitor",
-                            "types": ["Resource", "Health", "Architecture", "Security", "Quality"],
-                            "details": "Monitor de sistema {type} para backend",
-                            "monetization": [
-                                { "plan": "Basic", "price": "$19.99/mes", "limit": "5 servicios" },
-                                { "plan": "Pro", "price": "$49.99/mes", "limit": "20 servicios" },
-                                { "plan": "Enterprise", "price": "$199.99/mes", "limit": "Ilimitado" }
-                            ],
-                            "problem": "Equipos necesitan monitorizar y mantener sistemas backend",
-                            "questions": [
-                                "¿Cómo monitorizas tus sistemas?",
-                                "¿Qué métricas son críticas?",
-                                "¿Cómo manejas los incidentes?",
-                                "¿Qué alertas necesitas?",
-                                "¿Cuánto tiempo dedicas al mantenimiento?"
-                            ]
-                        }
+                        "¿Qué herramientas de ATS usas actualmente?",
+                        "¿Qué métricas de contratación te interesan más?",
+                        "¿Necesitas integraciones con plataformas de empleo?"
                     ]
                 },
                 {
-                    "category": "saas",
-                    "products": [
-                        {
-                            "base": "{type} Management Platform",
-                            "types": ["API", "Serverless", "Microservice", "Database", "Cache"],
-                            "details": "Plataforma de gestión {type} para backend",
+                    "text": "Microservicio de generación de contratos freelance",
+                    "details": "API para crear contratos legales personalizados",
+                    "problem": "Complejidad en la gestión legal de proyectos freelance",
                             "monetization": [
-                                { "plan": "Startup", "price": "$99/mes", "limit": "100k requests" },
-                                { "plan": "Business", "price": "$299/mes", "limit": "1M requests" },
-                                { "plan": "Enterprise", "price": "Custom", "limit": "Personalizado" }
+                        { "plan": "Basic", "price": "$29/mes", "limit": "5 contratos" },
+                        { "plan": "Pro", "price": "$79/mes", "limit": "Contratos ilimitados" }
                             ],
-                            "problem": "Empresas necesitan gestionar servicios backend eficientemente",
                             "questions": [
-                                "¿Cómo gestionas tus servicios?",
-                                "¿Qué volumen de requests manejas?",
-                                "¿Qué problemas de escalabilidad tienes?",
-                                "¿Cómo manejas los despliegues?",
-                                "¿Qué costos de infraestructura tienes?"
-                            ]
-                        },
-                        {
-                            "base": "{type} Integration Service",
-                            "types": ["Message Queue", "Service Mesh", "API Gateway", "Load Balancer", "Service Discovery"],
-                            "details": "Servicio de integración {type} para backend",
-                            "monetization": [
-                                { "plan": "Basic", "price": "$199/mes", "limit": "5 servicios" },
-                                { "plan": "Pro", "price": "$499/mes", "limit": "20 servicios" },
-                                { "plan": "Enterprise", "price": "Custom", "limit": "Ilimitado" }
-                            ],
-                            "problem": "Integrar y coordinar servicios backend es complejo",
-                            "questions": [
-                                "¿Cómo integras tus servicios?",
-                                "¿Qué problemas de comunicación tienes?",
-                                "¿Cómo manejas la latencia?",
-                                "¿Qué patrones de integración usas?",
-                                "¿Cómo aseguras la fiabilidad?"
-                            ]
-                        }
+                        "¿Cómo manejas los contratos actualmente?",
+                        "¿Qué cláusulas son más importantes para ti?",
+                        "¿Necesitas soporte legal adicional?"
                     ]
                 },
                 {
-                    "category": "product",
-                    "products": [
-                        {
-                            "base": "{type} Enterprise Platform",
-                            "types": ["Multi-Cloud", "Container Orchestration", "Distributed System", "Integration", "Monitoring"],
-                            "details": "Plataforma empresarial {type} para backend",
+                    "text": "Sistema de alertas de empleo personalizadas",
+                    "details": "Motor de búsqueda inteligente de ofertas laborales",
+                    "problem": "Dificultad para encontrar ofertas relevantes",
                             "monetization": [
-                                { "plan": "Department", "price": "$25,000/año", "limit": "1 departamento" },
-                                { "plan": "Division", "price": "$75,000/año", "limit": "Múltiples departamentos" },
-                                { "plan": "Enterprise", "price": "Custom", "limit": "Organización completa" }
+                        { "plan": "Free", "price": "Gratis", "limit": "3 alertas" },
+                        { "plan": "Premium", "price": "$19.99/mes", "limit": "Alertas ilimitadas" }
                             ],
-                            "problem": "Empresas necesitan plataformas backend robustas y escalables",
                             "questions": [
-                                "¿Qué plataformas usas actualmente?",
-                                "¿Cuántos servicios gestionas?",
-                                "¿Qué desafíos de escalabilidad tienes?",
-                                "¿Cómo manejas el multi-cloud?",
-                                "¿Qué costos de infraestructura tienes?"
-                            ]
-                        }
+                        "¿Qué criterios usas para buscar trabajo?",
+                        "¿Qué plataformas de empleo prefieres?",
+                        "¿Qué información te gustaría recibir en las alertas?"
+                    ]
+                },
+                {
+                    "text": "Backend para gestor de rutinas de concentración",
+                    "details": "API para tracking y optimización de períodos de trabajo",
+                    "problem": "Pérdida de productividad por distracciones",
+                            "monetization": [
+                        { "plan": "Basic", "price": "Gratis", "limit": "Funciones básicas" },
+                        { "plan": "Pro", "price": "$15.99/mes", "limit": "Análisis avanzado" }
+                            ],
+                            "questions": [
+                        "¿Cómo mides tu productividad actual?",
+                        "¿Qué factores afectan tu concentración?",
+                        "¿Te interesa el análisis de patrones?"
+                    ]
+                },
+                {
+                    "text": "Microservicio de monitoreo de precios SaaS",
+                    "details": "Sistema de tracking de cambios en precios de servicios",
+                    "problem": "Dificultad para optimizar costos de servicios",
+                            "monetization": [
+                        { "plan": "Starter", "price": "$39/mes", "limit": "10 servicios" },
+                        { "plan": "Business", "price": "$99/mes", "limit": "Servicios ilimitados" }
+                            ],
+                            "questions": [
+                        "¿Cuántos servicios SaaS utilizas?",
+                        "¿Cómo optimizas tus gastos actuales?",
+                        "¿Qué alertas te gustaría recibir?"
                     ]
                 }
             ],
             "data": [
                 {
-                    "category": "extension",
-                    "products": [
-                        {
-                            "base": "{type} Data Tool",
-                            "types": ["Cleaning", "Visualization", "ETL", "Quality", "Profiling"],
-                            "details": "Herramienta {type} para datos",
+                    "text": "Predicción de tarifas para freelancers",
+                    "details": "Sistema ML para optimizar precios según mercado y experiencia",
+                    "problem": "Dificultad para establecer tarifas competitivas",
                             "monetization": [
-                                { "plan": "Free", "price": "Gratis", "limit": "1000 filas/mes" },
-                                { "plan": "Pro", "price": "$9.99/mes", "limit": "Ilimitado" },
-                                { "plan": "Team", "price": "$7.99/usuario/mes", "limit": "Colaboración" }
+                        { "plan": "Basic", "price": "Gratis", "limit": "Análisis básico" },
+                        { "plan": "Pro", "price": "$24.99/mes", "limit": "Análisis avanzado" }
                             ],
-                            "problem": "Analistas necesitan herramientas eficientes para trabajar con datos",
                             "questions": [
-                                "¿Qué herramientas de datos usas?",
-                                "¿Cuánto tiempo dedicas a limpiar datos?",
-                                "¿Qué problemas son recurrentes?",
-                                "¿Cómo visualizas los datos?",
-                                "¿Qué automatizaciones necesitas?"
-                            ]
-                        },
-                        {
-                            "base": "{type} Data Explorer",
-                            "types": ["SQL", "NoSQL", "Graph", "Time-series", "Document"],
-                            "details": "Explorador de datos {type} avanzado",
-                            "monetization": [
-                                { "plan": "Basic", "price": "$14.99/mes", "limit": "3 conexiones" },
-                                { "plan": "Pro", "price": "$39.99/mes", "limit": "10 conexiones" },
-                                { "plan": "Enterprise", "price": "$199.99/mes", "limit": "Ilimitado" }
-                            ],
-                            "problem": "Equipos necesitan explorar y analizar datos eficientemente",
-                            "questions": [
-                                "¿Cómo exploras datos actualmente?",
-                                "¿Qué tipos de bases de datos usas?",
-                                "¿Qué análisis son complejos?",
-                                "¿Cómo compartes los hallazgos?",
-                                "¿Qué visualizaciones necesitas?"
-                            ]
-                        }
+                        "¿Cómo determines tus tarifas actuales?",
+                        "¿Qué factores consideras más importantes?",
+                        "¿Te interesaría ver predicciones por región?"
                     ]
                 },
                 {
-                    "category": "saas",
-                    "products": [
-                        {
-                            "base": "{type} Analytics Platform",
-                            "types": ["Predictive", "Real-time", "Big Data", "ML", "BI"],
-                            "details": "Plataforma de análisis {type}",
+                    "text": "Detector de código obsoleto en repositorios",
+                    "details": "Sistema de análisis de código legacy y dependencias",
+                    "problem": "Mantenimiento costoso de código antiguo",
                             "monetization": [
-                                { "plan": "Startup", "price": "$199/mes", "limit": "100k eventos" },
-                                { "plan": "Growth", "price": "$499/mes", "limit": "1M eventos" },
-                                { "plan": "Enterprise", "price": "Custom", "limit": "Personalizado" }
+                        { "plan": "Basic", "price": "$49/mes", "limit": "5 repos" },
+                        { "plan": "Team", "price": "$199/mes", "limit": "Repos ilimitados" }
                             ],
-                            "problem": "Empresas necesitan analizar grandes volúmenes de datos",
                             "questions": [
-                                "¿Cómo analizas datos actualmente?",
-                                "¿Qué volumen de datos manejas?",
-                                "¿Qué insights son valiosos?",
-                                "¿Cómo usas ML/AI?",
-                                "¿Qué decisiones tomas con datos?"
-                            ]
-                        },
-                        {
-                            "base": "{type} Data Platform",
-                            "types": ["Lake", "Warehouse", "Pipeline", "Governance", "Quality"],
-                            "details": "Plataforma de datos {type} empresarial",
-                            "monetization": [
-                                { "plan": "Team", "price": "$999/mes", "limit": "500GB" },
-                                { "plan": "Business", "price": "$2,499/mes", "limit": "5TB" },
-                                { "plan": "Enterprise", "price": "Custom", "limit": "Ilimitado" }
-                            ],
-                            "problem": "Organizaciones necesitan gestionar datos a escala",
-                            "questions": [
-                                "¿Cómo almacenas tus datos?",
-                                "¿Qué fuentes de datos tienes?",
-                                "¿Cómo aseguras la calidad?",
-                                "¿Qué problemas de integración tienes?",
-                                "¿Cómo manejas el gobierno de datos?"
-                            ]
-                        }
+                        "¿Cómo identificas código obsoleto actualmente?",
+                        "¿Qué métricas de código te interesan más?",
+                        "¿Necesitas integración con CI/CD?"
                     ]
                 },
                 {
-                    "category": "product",
-                    "products": [
-                        {
-                            "base": "{type} Enterprise Solution",
-                            "types": ["Data Science", "ML Ops", "Data Ops", "Analytics", "AI"],
-                            "details": "Solución empresarial {type} completa",
+                    "text": "Predictor de éxito de side projects",
+                    "details": "Análisis de viabilidad basado en datos de mercado",
+                    "problem": "Alta tasa de fracaso en proyectos personales",
                             "monetization": [
-                                { "plan": "Department", "price": "$50,000/año", "limit": "1 departamento" },
-                                { "plan": "Division", "price": "$150,000/año", "limit": "Múltiples departamentos" },
-                                { "plan": "Enterprise", "price": "Custom", "limit": "Organización completa" }
+                        { "plan": "Basic", "price": "Gratis", "limit": "1 proyecto/mes" },
+                        { "plan": "Pro", "price": "$29.99/mes", "limit": "Proyectos ilimitados" }
                             ],
-                            "problem": "Empresas necesitan soluciones de datos end-to-end",
                             "questions": [
-                                "¿Qué soluciones de datos usas?",
-                                "¿Cómo implementas ML/AI?",
-                                "¿Qué desafíos de datos tienes?",
-                                "¿Cómo mides el ROI?",
-                                "¿Qué capacidades necesitas?"
-                            ]
-                        }
+                        "¿Cómo evalúas tus ideas actualmente?",
+                        "¿Qué indicadores de éxito te interesan?",
+                        "¿Te gustaría comparar con proyectos similares?"
+                    ]
+                },
+                {
+                    "text": "Sistema de análisis de precios de SaaS",
+                    "details": "Plataforma de benchmarking y optimización de precios",
+                    "problem": "Dificultad para establecer precios competitivos",
+                            "monetization": [
+                        { "plan": "Startup", "price": "$79/mes", "limit": "Análisis básico" },
+                        { "plan": "Scale", "price": "$199/mes", "limit": "Análisis completo" }
+                            ],
+                            "questions": [
+                        "¿Cómo estableces tus precios actualmente?",
+                        "¿Qué métricas de competencia te interesan?",
+                        "¿Necesitas análisis por región?"
+                    ]
+                },
+                {
+                    "text": "Algoritmo de match para co-founders",
+                    "details": "Sistema ML para emparejar fundadores compatibles",
+                    "problem": "Dificultad para encontrar socios adecuados",
+                            "monetization": [
+                        { "plan": "Basic", "price": "Gratis", "limit": "3 matches/mes" },
+                        { "plan": "Pro", "price": "$39.99/mes", "limit": "Matches ilimitados" }
+                            ],
+                            "questions": [
+                        "¿Qué buscas en un co-founder?",
+                        "¿Qué factores son más importantes?",
+                        "¿Te interesa el análisis de compatibilidad?"
                     ]
                 }
             ]
@@ -503,20 +388,36 @@
         function generateAllIdeas() {
             const ideas = [];
             Object.keys(ideaTemplates).forEach(profile => {
-                ideaTemplates[profile].forEach(category => {
-                    category.products.forEach(product => {
-                        product.types.forEach(type => {
-                            ideas.push({
-                                text: product.base.replace('{type}', type),
-                                details: product.details.replace('{type}', type),
-                                profile: profile,
-                                category: category.category,
-                                problem: product.problem,
-                                monetization: product.monetization,
-                                questions: product.questions
-                            });
+                ideaTemplates[profile].forEach(item => {
+                    // Si es una idea directa (sin products)
+                    if (item.text) {
+                        ideas.push({
+                            text: item.text,
+                            details: item.details,
+                            profile: profile,
+                            problem: item.problem,
+                            monetization: item.monetization,
+                            questions: item.questions
                         });
-                    });
+                    }
+                    // Si es una categoría con productos
+                    else if (item.products) {
+                        item.products.forEach(product => {
+                            if (product.types) {
+                                product.types.forEach(type => {
+                                    ideas.push({
+                                        text: product.base.replace('{type}', type),
+                                        details: product.details.replace('{type}', type),
+                                        profile: profile,
+                                        category: item.category,
+                                        problem: product.problem,
+                                        monetization: product.monetization,
+                                        questions: product.questions
+                                    });
+                                });
+                            }
+                        });
+                    }
                 });
             });
             return ideas;
@@ -526,7 +427,7 @@
             const ideasList = document.getElementById('ideasList');
             ideasList.innerHTML = '';
             ideas.forEach(idea => {
-                const li = document.createElement('li');
+                    const li = document.createElement('li');
                 li.classList.add('bg-white', 'p-4', 'rounded-lg', 'shadow-md', 'hover:shadow-lg', 'transition', 'cursor-pointer', 'mb-4', 'idea-item');
                 li.innerHTML = `
                     <h4 class="text-lg font-bold text-gray-900">${idea.text}</h4>
@@ -548,7 +449,7 @@
                         </div>
                     </div>
                 `;
-                ideasList.appendChild(li);
+                    ideasList.appendChild(li);
 
                 // Add event listener for "Ver más" button
                 li.querySelector('.ver-mas').addEventListener('click', function() {
@@ -566,20 +467,14 @@
 
         function filterIdeas() {
             const selectedProfiles = Array.from(document.querySelectorAll('.profile-filter:checked')).map(cb => cb.value);
-            const selectedExperiences = Array.from(document.querySelectorAll('.experience-filter:checked')).map(cb => cb.value);
-            const selectedDevelopments = Array.from(document.querySelectorAll('.development-filter:checked')).map(cb => cb.value);
-
             const allIdeas = generateAllIdeas();
             const filteredIdeas = allIdeas.filter(idea => {
-                const matchesProfile = selectedProfiles.length === 0 || selectedProfiles.includes(idea.profile);
-                const matchesDevelopment = selectedDevelopments.length === 0 || selectedDevelopments.includes(idea.category);
-                return matchesProfile && matchesDevelopment;
+                return selectedProfiles.length === 0 || selectedProfiles.includes(idea.profile);
             });
-
             displayIdeas(filteredIdeas);
         }
 
-        document.querySelectorAll('.profile-filter, .experience-filter, .development-filter').forEach(checkbox => {
+        document.querySelectorAll('.profile-filter').forEach(checkbox => {
             checkbox.addEventListener('change', filterIdeas);
         });
 
@@ -694,10 +589,10 @@
         function closeModal() {
             const modal = document.getElementById('ideaModal');
             if (modal) {
-                modal.classList.add('opacity-0');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                }, 300);
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
             }
         }
 
